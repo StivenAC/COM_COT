@@ -39,26 +39,46 @@ if ENCRYPTION_KEY is None:
 class MyTabView(ctk.CTkTabview):
     def __init__(self, master, **kwargs):
         super().__init__(master, **kwargs)
+        
+        # Tab configurations
+        self.tab_configs = {
+            "Desarrollo": {
+                "load_func": self.load_data_Desarrollo,
+                "create_func": self.create_record_Desarrollo,
+                "edit_func": self.edit_record_Desarrollo
+            },
+            "Bodega": {
+                "load_func": self.load_data_Bodega,
+                "create_func": self.create_record_Bodega,
+                "edit_func": self.edit_record_Bodega
+            },
+            "Calidad": {
+                "load_func": self.load_data_Calidad,
+                "create_func": self.create_record_Calidad,
+                "edit_func": self.edit_record_Calidad
+            },
+            "Produccion": {
+                "load_func": self.load_data_Produccion,
+                "create_func": self.create_record_Produccion,
+                "edit_func": self.edit_record_Produccion
+            },
+        }
 
-        # Create tabs
-        self.add("Desarrollo")
-        self.add("Bodega")
-        self.add("Calidad")
-        self.add("Produccion")
-
-        # Add widgets to tabs
-        self.my_frame1 = MyFrame(master=self.tab("Desarrollo"), load_data_func=self.load_data_Desarrollo)
-        self.my_frame1.pack(fill="both", expand=True)
-        self.my_frame2 = MyFrame(master=self.tab("Bodega"), load_data_func=self.load_data_Bodega)
-        self.my_frame2.pack(fill="both", expand=True)
-        self.my_frame3 = MyFrame(master=self.tab("Calidad"), load_data_func=self.load_data_Calidad)
-        self.my_frame3.pack(fill="both", expand=True)
-        self.my_frame4 = MyFrame(master=self.tab("Produccion"), load_data_func=self.load_data_Produccion)
-        self.my_frame4.pack(fill="both", expand=True)
-
+        # Create tabs and frames
+        self.frames = {}
+        for tab_name, config in self.tab_configs.items():
+            self.add(tab_name)
+            self.frames[tab_name] = MyFrame(
+                master=self.tab(tab_name), 
+                load_data_func=config['load_func'],
+                create_record_func=config.get('create_func'),
+                edit_record_func=config.get('edit_func')
+            )
+            self.frames[tab_name].pack(fill="both", expand=True)
+    
     def load_data_Desarrollo(self, frame):
-        cursor = None  # Initialize cursor with None
-        conn = None  # Initialize conn with None
+        cursor = None
+        conn = None
         try:
             conn_str = (
                 f"DRIVER={os.getenv('DB1_DRIVER')};"
@@ -69,27 +89,225 @@ class MyTabView(ctk.CTkTabview):
             )
             conn = pyodbc.connect(conn_str)
             cursor = conn.cursor()
-
             query = "SELECT * FROM SIIAPP.dbo.SIIAPP_Des"
             cursor.execute(query)
             data = cursor.fetchall()
-
-            headers = [desc[0] for desc in cursor.description]  # Extract column names
+            headers = [desc[0] for desc in cursor.description]
             frame.sheet.headers(headers)
-
+            
             # Convert data to list of lists with string values
             formatted_data = [[str(value) if value is not None else "" for value in row] for row in data]
-
             frame.original_data = formatted_data
             frame.sheet.set_sheet_data(formatted_data)
-
         except pyodbc.Error as e:
             print(f"An error occurred while loading Desarrollo data: {str(e)}", file=sys.stderr)
+            messagebox.showerror(title="Error", message=f"No se pudo cargar los datos: {str(e)}")
         finally:
             if cursor:
                 cursor.close()
             if conn:
                 conn.close()
+    
+    # Placeholder methods for create and edit
+    def create_record_Desarrollo(self, frame):
+        crear_dialog = ctk.CTkToplevel(self)
+        crear_dialog.title("Crear Nuevo Registro - Desarrollo")
+        crear_dialog.geometry("500x700")
+        
+        # Campos basados en la consulta SELECT
+        campos = [
+            "N_control", 
+            "Fecha_Soli", 
+            "N_cotizacion", 
+            "PT", 
+            "Producto", 
+            "Cliente"
+        ]
+        
+        # Diccionario para guardar entradas
+        entries = {}
+        
+        # Crear entradas para cada campo
+        for campo in campos:
+            frame_campo = ctk.CTkFrame(crear_dialog)
+            frame_campo.pack(pady=5, padx=20, fill="x")
+            
+            label = ctk.CTkLabel(frame_campo, text=campo, width=150, anchor="w")
+            label.pack(side="left", padx=(0, 10))
+            
+            entry = ctk.CTkEntry(frame_campo, width=300)
+            entry.pack(side="left", expand=True, fill="x")
+            entries[campo] = entry
+        
+        def guardar():
+            """Guardar el nuevo registro"""
+            try:
+                # Preparar conexión a la base de datos
+                conn_str = (
+                    f"DRIVER={os.getenv('DB1_DRIVER')};"
+                    f"SERVER={os.getenv('DB1_SERVER')};"
+                    f"DATABASE={os.getenv('DB1_DATABASE')};"
+                    f"UID={os.getenv('DB1_UID')};"
+                    f"PWD={os.getenv('DB1_PWD')}"
+                )
+                conn = pyodbc.connect(conn_str)
+                cursor = conn.cursor()
+                
+                # Preparar consulta de inserción
+                query = '''
+                INSERT INTO dbo.SIIAPP_Des (
+                    N_control, 
+                    Fecha_Soli, 
+                    N_cotizacion, 
+                    PT, 
+                    Producto, 
+                    Cliente
+                ) VALUES (?, ?, ?, ?, ?, ?)
+                '''
+                
+                # Recoger valores
+                valores = [entries[campo].get() for campo in campos]
+                
+                # Ejecutar inserción
+                cursor.execute(query, valores)
+                conn.commit()
+                
+                messagebox.showinfo(
+                    title="Éxito", 
+                    message="Registro creado correctamente"
+                )
+                crear_dialog.destroy()
+                frame.load_data()
+            
+            except Exception as e:
+                messagebox.showerror(
+                    title="Error", 
+                    message=f"No se pudo crear el registro: {str(e)}",
+                    icon="cancel"
+                )
+            finally:
+                if 'conn' in locals():
+                    conn.close()
+        
+        # Botón de guardar
+        guardar_btn = ctk.CTkButton(crear_dialog, text="Guardar", command=guardar)
+        guardar_btn.pack(pady=20)
+    
+    def edit_record_Desarrollo(self, frame):
+        try:
+            selected_rows = frame.sheet.get_selected_rows()
+            
+            if not selected_rows:
+                messagebox.showerror(title="Error", message="Seleccione un registro para editar")
+                return
+            
+            # Get the data of the selected row from filtered or original data
+            selected_data = next(iter(selected_rows))
+            row_data = frame.sheet.get_row_data(selected_data)
+            N_control = row_data[1]  # Assuming N_control is in the first column (index 0)
+
+            if not N_control:
+                messagebox.showerror("Error", "No se pudo obtener el N_control del registro seleccionado.")
+                logging.error("El N_control es nulo o no válido.")
+                return
+
+            logging.info(f"N_control seleccionado: {N_control}")
+
+            # Create edit dialog window
+            editar_dialog = ctk.CTkToplevel(frame)
+            editar_dialog.title("Editar Registro")
+            editar_dialog.geometry("500x700")
+
+            # Fields (excluding N_control)
+            campos = [
+                "N_control",
+                "Fecha_Soli", 
+                "N_cotizacion", 
+                "PT", 
+                "Producto", 
+                "Cliente"
+            ]
+
+            # Dictionary to store entry widgets
+            entries = {}
+            # Create the scrollable frame
+            scrollable_frame = ScrollableFrame(editar_dialog)
+            scrollable_frame.pack(pady=10, padx=20, fill="both", expand=True)
+
+            # Create a frame for the input fields
+            input_frame = ctk.CTkFrame(scrollable_frame)
+            input_frame.pack(fill="x", expand=True)
+            # Create input fields for each column
+            for i, campo in enumerate(campos, start=1):
+                field_frame = ctk.CTkFrame(input_frame)
+                field_frame.pack(pady=5, padx=20, fill="x")
+
+                label = ctk.CTkLabel(field_frame, text=campo, width=150, anchor="w")
+                label.pack(side="left", padx=(0, 10))
+
+                entry = ctk.CTkEntry(field_frame, width=300)
+                entry.pack(side="left", expand=True, fill="x")
+
+                # Pre-fill current value from row_data
+                valor_actual = row_data[i]
+                entry.insert(0, valor_actual)
+
+                entries[campo] = entry
+
+            def actualizar():
+                """Update the selected record"""
+                try:
+                    logging.info(f"Inicio de actualización para N_control: {N_control}")
+                    conn_str = (
+                        f"DRIVER={os.getenv('DB1_DRIVER')};"
+                        f"SERVER={os.getenv('DB1_SERVER')};"
+                        f"DATABASE={os.getenv('DB1_DATABASE')};"
+                        f"UID={os.getenv('DB1_UID')};"
+                        f"PWD={os.getenv('DB1_PWD')}"
+                    )
+                    conn = pyodbc.connect(conn_str)
+                    cursor = conn.cursor()
+
+                    # Prepare update query
+                    query = '''
+                        UPDATE dbo.SIIAPP_Des
+                        SET 
+                            N_control = ?,
+                            Fecha_Soli = ?, 
+                            N_cotizacion = ?, 
+                            PT = ?, 
+                            Producto = ?, 
+                            Cliente = ?
+                        WHERE N_control = ?
+                    '''
+                    # Collect values
+                    valores = [entries[campo].get() for campo in campos] + [N_control]
+
+                    # Execute update
+                    cursor.execute(query, valores)
+                    conn.commit()
+
+                    logging.info(f"Registro {N_control} actualizado exitosamente.")
+                    messagebox.showinfo("Éxito", "Registro actualizado correctamente")
+                    editar_dialog.destroy()
+
+                    # Refresh data in the frame
+                    frame.load_data()
+
+                except Exception as e:
+                    logging.error(f"Error al actualizar registro {N_control}: {e}")
+                    messagebox.showerror("Error", f"No se pudo actualizar el registro: {str(e)}")
+                finally:
+                    if 'conn' in locals():
+                        conn.close()
+
+            # Update button
+            actualizar_btn = ctk.CTkButton(input_frame, text="Actualizar", command=actualizar)
+            actualizar_btn.pack(pady=20)
+
+        except Exception as e:
+            logging.error(f"Error en el proceso de edición: {e}")
+            messagebox.showerror("Error", f"Ocurrió un problema al intentar editar el registro: {str(e)}")
 
     def load_data_Bodega(self, frame):
         cursor = None  # Initialize cursor with None
@@ -125,6 +343,273 @@ class MyTabView(ctk.CTkTabview):
                 cursor.close()
             if conn:
                 conn.close()
+    # Placeholder methods for create and edit
+    def create_record_Bodega(self, frame):
+        crear_dialog = ctk.CTkToplevel(self)
+        crear_dialog.title("Crear Nuevo Registro - Desarrollo")
+        crear_dialog.geometry("500x700")
+        
+        # Campos basados en la consulta SELECT
+        campos = [
+            "N_Control",
+            "Bottle_Cod",
+            "Envase",
+            "Bottle_Sum",
+            "Bottle_Color",
+            "Bottle_Material",
+            "Bottle_ML",
+            "Cap_Cod",
+            "Tapa",
+            "Cap_Sum",
+            "Cap_Color",
+            "Cap_Material",
+            "Foil_Cod",
+            "Foil",
+            "Foil_Type",
+            "FB_Cod",
+            "Funda_Banda",
+            "Ubicacion_Termoduc",
+            "Etiq_Cod",
+            "Etiqueta",
+            "Box_Cod",
+            "Box_Folding",
+            "Box_Sum"
+        ]
+        
+        # Diccionario para guardar entradas
+        entries = {}
+        
+        # Crear entradas para cada campo
+        for campo in campos:
+            frame_campo = ctk.CTkFrame(crear_dialog)
+            frame_campo.pack(pady=5, padx=20, fill="x")
+            
+            label = ctk.CTkLabel(frame_campo, text=campo, width=150, anchor="w")
+            label.pack(side="left", padx=(0, 10))
+            
+            entry = ctk.CTkEntry(frame_campo, width=300)
+            entry.pack(side="left", expand=True, fill="x")
+            entries[campo] = entry
+        
+        def guardar():
+            """Guardar el nuevo registro"""
+            try:
+                # Preparar conexión a la base de datos
+                conn_str = (
+                    f"DRIVER={os.getenv('DB1_DRIVER')};"
+                    f"SERVER={os.getenv('DB1_SERVER')};"
+                    f"DATABASE={os.getenv('DB1_DATABASE')};"
+                    f"UID={os.getenv('DB1_UID')};"
+                    f"PWD={os.getenv('DB1_PWD')}"
+                )
+                conn = pyodbc.connect(conn_str)
+                cursor = conn.cursor()
+                
+                # SQL Insert statement
+                query = '''
+                INSERT INTO dbo.SIIAPP_Bod (
+                    N_Control,
+                    Bottle_Cod,
+                    Envase,
+                    Bottle_Sum,
+                    Bottle_Color,
+                    Bottle_Material,
+                    Bottle_ML,
+                    Cap_Cod,
+                    Tapa,
+                    Cap_Sum,
+                    Cap_Color,
+                    Cap_Material,
+                    Foil_Cod,
+                    Foil,
+                    Foil_Type,
+                    FB_Cod,
+                    Funda_Banda,
+                    Ubicacion_Termoduc,
+                    Etiq_Cod,
+                    Etiqueta,
+                    Box_Cod,
+                    Box_Folding,
+                    Box_Sum
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                '''
+                # Recoger valores
+                valores = [entries[campo].get() for campo in campos]
+                
+                # Ejecutar inserción
+                cursor.execute(query, valores)
+                conn.commit()
+                
+                messagebox.showinfo(
+                    title="Éxito", 
+                    message="Registro creado correctamente"
+                )
+                crear_dialog.destroy()
+                frame.load_data()
+            
+            except Exception as e:
+                messagebox.showerror(
+                    title="Error", 
+                    message=f"No se pudo crear el registro: {str(e)}",
+                    icon="cancel"
+                )
+            finally:
+                if 'conn' in locals():
+                    conn.close()
+        
+        # Botón de guardar
+        guardar_btn = ctk.CTkButton(crear_dialog, text="Guardar", command=guardar)
+        guardar_btn.pack(pady=20)
+    
+    def edit_record_Bodega(self, frame):
+        try:
+            selected_rows = frame.sheet.get_selected_rows()
+            
+            if not selected_rows:
+                messagebox.showerror(title="Error", message="Seleccione un registro para editar")
+                return
+            
+            # Get the data of the selected row from filtered or original data
+            selected_data = next(iter(selected_rows))
+            row_data = frame.sheet.get_row_data(selected_data)
+            N_control = row_data[1]  # Assuming N_control is in the first column (index 0)
+
+            if not N_control:
+                messagebox.showerror("Error", "No se pudo obtener el N_control del registro seleccionado.")
+                logging.error("El N_control es nulo o no válido.")
+                return
+
+            logging.info(f"N_control seleccionado: {N_control}")
+
+            # Create edit dialog window
+            editar_dialog = ctk.CTkToplevel(frame)
+            editar_dialog.title("Editar Registro")
+            editar_dialog.geometry("500x700")
+
+            # Fields (excluding N_control)
+            campos = [
+                "N_Control",
+                "Bottle_Cod",
+                "Envase",
+                "Bottle_Sum",
+                "Bottle_Color",
+                "Bottle_Material",
+                "Bottle_ML",
+                "Cap_Cod",
+                "Tapa",
+                "Cap_Sum",
+                "Cap_Color",
+                "Cap_Material",
+                "Foil_Cod",
+                "Foil",
+                "Foil_Type",
+                "FB_Cod",
+                "Funda_Banda",
+                "Ubicacion_Termoduc",
+                "Etiq_Cod",
+                "Etiqueta",
+                "Box_Cod",
+                "Box_Folding",
+                "Box_Sum"
+            ]
+
+            # Dictionary to store entry widgets
+            entries = {}
+            # Create the scrollable frame
+            scrollable_frame = ScrollableFrame(editar_dialog)
+            scrollable_frame.pack(pady=10, padx=20, fill="both", expand=True)
+
+            # Create a frame for the input fields
+            input_frame = ctk.CTkFrame(scrollable_frame)
+            input_frame.pack(fill="x", expand=True)
+
+            # Create input fields for each column
+            for i, campo in enumerate(campos, start=1):
+                field_frame = ctk.CTkFrame(input_frame, i)
+                field_frame.pack(pady=5, padx=20, fill="x")
+
+                label = ctk.CTkLabel(field_frame, text=campo, width=150, anchor="w")
+                label.pack(side="left", padx=(0, 10))
+
+                entry = ctk.CTkEntry(field_frame, width=300)
+                entry.pack(side="left", expand=True, fill="x")
+
+                # Pre-fill current value from row_data
+                valor_actual = row_data[i]
+                entry.insert(0, valor_actual)
+
+                entries[campo] = entry
+
+            def actualizar():
+                """Update the selected record"""
+                try:
+                    logging.info(f"Inicio de actualización para N_control: {N_control}")
+                    conn_str = (
+                        f"DRIVER={os.getenv('DB1_DRIVER')};"
+                        f"SERVER={os.getenv('DB1_SERVER')};"
+                        f"DATABASE={os.getenv('DB1_DATABASE')};"
+                        f"UID={os.getenv('DB1_UID')};"
+                        f"PWD={os.getenv('DB1_PWD')}"
+                    )
+                    conn = pyodbc.connect(conn_str)
+                    cursor = conn.cursor()
+
+                    # Prepare update query
+                    query = '''
+                    UPDATE dbo.SIIAPP_Bod SET
+                        N_Control = ?,
+                        Bottle_Cod = ?,
+                        Envase = ?,
+                        Bottle_Sum = ?,
+                        Bottle_Color = ?,
+                        Bottle_Material = ?,
+                        Bottle_ML = ?,
+                        Cap_Cod = ?,
+                        Tapa = ?,
+                        Cap_Sum = ?,
+                        Cap_Color = ?,
+                        Cap_Material = ?,
+                        Foil_Cod = ?,
+                        Foil = ?,
+                        Foil_Type = ?,
+                        FB_Cod = ?,
+                        Funda_Banda = ?,
+                        Ubicacion_Termoduc = ?,
+                        Etiq_Cod = ?,
+                        Etiqueta = ?,
+                        Box_Cod = ?,
+                        Box_Folding = ?,
+                        Box_Sum = ?
+                    WHERE N_Control = ?
+                    '''
+                    # Collect values
+                    valores = [entries[campo].get() for campo in campos] + [N_control]
+
+                    # Execute update
+                    cursor.execute(query, valores)
+                    conn.commit()
+
+                    logging.info(f"Registro {N_control} actualizado exitosamente.")
+                    messagebox.showinfo("Éxito", "Registro actualizado correctamente")
+                    editar_dialog.destroy()
+
+                    # Refresh data in the frame
+                    frame.load_data()
+
+                except Exception as e:
+                    logging.error(f"Error al actualizar registro {N_control}: {e}")
+                    messagebox.showerror("Error", f"No se pudo actualizar el registro: {str(e)}")
+                finally:
+                    if 'conn' in locals():
+                        conn.close()
+
+            # Update button
+            actualizar_btn = ctk.CTkButton(input_frame, text="Actualizar", command=actualizar)
+            actualizar_btn.pack(pady=20)
+
+        except Exception as e:
+            logging.error(f"Error en el proceso de edición: {e}")
+            messagebox.showerror("Error", f"Ocurrió un problema al intentar editar el registro: {str(e)}")
 
     def load_data_Calidad(self, frame):
         cursor = None
@@ -160,7 +645,268 @@ class MyTabView(ctk.CTkTabview):
                 cursor.close()
             if conn:
                 conn.close()
+    # Placeholder methods for create and edit
+    def create_record_Calidad(self, frame):
+        crear_dialog = ctk.CTkToplevel(self)
+        crear_dialog.title("Crear Nuevo Registro - Desarrollo")
+        crear_dialog.geometry("500x700")
+        
+        # Campos basados en la consulta SELECT
+        campos = [
+            "N_Control",
+            "Mesofilos",
+            "E_Coli",
+            "S_Aureus",
+            "P_Aureoginosa",
+            "Moho_Levadura",
+            "Micro_Obs",
+            "Cumple_Microbiologia",
+            "Densidad",
+            "Ph",
+            "Contenido",
+            "Color",
+            "Textura",
+            "Olor",
+            "Viscosidad",
+            "Rpm",
+            "Aguja",
+            "Torque",
+            "Apt_Container",
+            "Cont_Obs",
+            "Diligenciado"
+        ]
+        
+        # Diccionario para guardar entradas
+        entries = {}
+        
+        # Crear entradas para cada campo
+        for campo in campos:
+            frame_campo = ctk.CTkFrame(crear_dialog)
+            frame_campo.pack(pady=5, padx=20, fill="x")
+            
+            label = ctk.CTkLabel(frame_campo, text=campo, width=150, anchor="w")
+            label.pack(side="left", padx=(0, 10))
+            
+            entry = ctk.CTkEntry(frame_campo, width=300)
+            entry.pack(side="left", expand=True, fill="x")
+            entries[campo] = entry
+        
+        def guardar():
+            """Guardar el nuevo registro"""
+            try:
+                # Preparar conexión a la base de datos
+                conn_str = (
+                    f"DRIVER={os.getenv('DB1_DRIVER')};"
+                    f"SERVER={os.getenv('DB1_SERVER')};"
+                    f"DATABASE={os.getenv('DB1_DATABASE')};"
+                    f"UID={os.getenv('DB1_UID')};"
+                    f"PWD={os.getenv('DB1_PWD')}"
+                )
+                conn = pyodbc.connect(conn_str)
+                cursor = conn.cursor()
+                
+                # SQL Insert statement
+                query = '''
+                INSERT INTO dbo.SIIAPP_Cal (
+                    N_Control,
+                    Mesofilos,
+                    E_Coli,
+                    S_Aureus,
+                    P_Aureoginosa,
+                    Moho_Levadura,
+                    Micro_Obs,
+                    Cumple_Microbiologia,
+                    Densidad,
+                    Ph,
+                    Contenido,
+                    Color,
+                    Textura,
+                    Olor,
+                    Viscosidad,
+                    Rpm,
+                    Aguja,
+                    Torque,
+                    Apt_Container,
+                    Cont_Obs,
+                    Diligenciado
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+                '''
+                
+                # Recoger valores
+                valores = [entries[campo].get() for campo in campos]
+                
+                # Ejecutar inserción
+                cursor.execute(query, valores)
+                conn.commit()
+                
+                messagebox.showinfo(
+                    title="Éxito", 
+                    message="Registro creado correctamente"
+                )
+                crear_dialog.destroy()
+                frame.load_data()
+            
+            except Exception as e:
+                messagebox.showerror(
+                    title="Error", 
+                    message=f"No se pudo crear el registro: {str(e)}",
+                    icon="cancel"
+                )
+            finally:
+                if 'conn' in locals():
+                    conn.close()
+        
+        # Botón de guardar
+        guardar_btn = ctk.CTkButton(crear_dialog, text="Guardar", command=guardar)
+        guardar_btn.pack(pady=20)
+    
+    def edit_record_Calidad(self, frame):
+        try:
+            selected_rows = frame.sheet.get_selected_rows()
+            
+            if not selected_rows:
+                messagebox.showerror(title="Error", message="Seleccione un registro para editar")
+                return
+            
+            # Get the data of the selected row from filtered or original data
+            selected_data = next(iter(selected_rows))
+            row_data = frame.sheet.get_row_data(selected_data)
+            N_control = row_data[1]  # Assuming N_control is in the first column (index 0)
 
+            if not N_control:
+                messagebox.showerror("Error", "No se pudo obtener el N_control del registro seleccionado.")
+                logging.error("El N_control es nulo o no válido.")
+                return
+
+            logging.info(f"N_control seleccionado: {N_control}")
+
+            # Create edit dialog window
+            editar_dialog = ctk.CTkToplevel(frame)
+            editar_dialog.title("Editar Registro")
+            editar_dialog.geometry("500x700")
+
+            # Fields (excluding N_control)
+            campos = [
+                "N_Control",
+                "Mesofilos",
+                "E_Coli",
+                "S_Aureus",
+                "P_Aureoginosa",
+                "Moho_Levadura",
+                "Micro_Obs",
+                "Cumple_Microbiologia",
+                "Densidad",
+                "Ph",
+                "Contenido",
+                "Color",
+                "Textura",
+                "Olor",
+                "Viscosidad",
+                "Rpm",
+                "Aguja",
+                "Torque",
+                "Apt_Container",
+                "Cont_Obs",
+                "Diligenciado"
+            ]
+
+            # Dictionary to store entry widgets
+            entries = {}
+            
+            # Your existing code for creating input fields
+            # Create the scrollable frame
+            scrollable_frame = ScrollableFrame(editar_dialog)
+            scrollable_frame.pack(pady=10, padx=20, fill="both", expand=True)
+
+            # Create a frame for the input fields
+            input_frame = ctk.CTkFrame(scrollable_frame)
+            input_frame.pack(fill="x", expand=True)
+            # Create input fields for each column
+            for i, campo in enumerate(campos, start=1):
+                field_frame = ctk.CTkFrame(input_frame)
+                field_frame.pack(pady=5, padx=20, fill="x")
+
+                label = ctk.CTkLabel(field_frame, text=campo, width=150, anchor="w")
+                label.pack(side="left", padx=(0, 10))
+
+                entry = ctk.CTkEntry(field_frame, width=300)
+                entry.pack(side="left", expand=True, fill="x")
+
+                # Pre-fill current value from row_data
+                valor_actual = row_data[i]
+                entry.insert(0, valor_actual)
+
+                entries[campo] = entry
+
+            def actualizar():
+                """Update the selected record"""
+                try:
+                    logging.info(f"Inicio de actualización para N_control: {N_control}")
+                    conn_str = (
+                        f"DRIVER={os.getenv('DB1_DRIVER')};"
+                        f"SERVER={os.getenv('DB1_SERVER')};"
+                        f"DATABASE={os.getenv('DB1_DATABASE')};"
+                        f"UID={os.getenv('DB1_UID')};"
+                        f"PWD={os.getenv('DB1_PWD')}"
+                    )
+                    conn = pyodbc.connect(conn_str)
+                    cursor = conn.cursor()
+
+                    # Prepare update query
+                    query = '''
+                    UPDATE dbo.SIIAPP_Cal SET
+                        N_Control = ?,
+                        Mesofilos = ?,
+                        E_Coli = ?,
+                        S_Aureus = ?,
+                        P_Aureoginosa = ?,
+                        Moho_Levadura = ?,
+                        Micro_Obs = ?,
+                        Cumple_Microbiologia = ?,
+                        Densidad = ?,
+                        Ph = ?,
+                        Contenido = ?,
+                        Color = ?,
+                        Textura = ?,
+                        Olor = ?,
+                        Viscosidad = ?,
+                        Rpm = ?,
+                        Aguja = ?,
+                        Torque = ?,
+                        Apt_Container = ?,
+                        Cont_Obs = ?,
+                        Diligenciado = ?
+                    WHERE N_Control = ?;
+                    '''
+                    # Collect values
+                    valores = [entries[campo].get() for campo in campos] + [N_control]
+
+                    # Execute update
+                    cursor.execute(query, valores)
+                    conn.commit()
+
+                    logging.info(f"Registro {N_control} actualizado exitosamente.")
+                    messagebox.showinfo("Éxito", "Registro actualizado correctamente")
+                    editar_dialog.destroy()
+
+                    # Refresh data in the frame
+                    frame.load_data()
+
+                except Exception as e:
+                    logging.error(f"Error al actualizar registro {N_control}: {e}")
+                    messagebox.showerror("Error", f"No se pudo actualizar el registro: {str(e)}")
+                finally:
+                    if 'conn' in locals():
+                        conn.close()
+
+            # Update button
+            actualizar_btn = ctk.CTkButton(input_frame, text="Actualizar", command=actualizar)
+            actualizar_btn.pack(pady=20)
+
+        except Exception as e:
+            logging.error(f"Error en el proceso de edición: {e}")
+            messagebox.showerror("Error", f"Ocurrió un problema al intentar editar el registro: {str(e)}")
+    
     def load_data_Produccion(self, frame):
         cursor = None
         conn = None
@@ -195,7 +941,241 @@ class MyTabView(ctk.CTkTabview):
                 cursor.close()
             if conn:
                 conn.close()
+    # Placeholder methods for create and edit
+    def create_record_Produccion(self, frame):
+        crear_dialog = ctk.CTkToplevel(self)
+        crear_dialog.title("Crear Nuevo Registro - Desarrollo")
+        crear_dialog.geometry("500x700")
+        
+        # Campos basados en la consulta SELECT
+        campos = [
+            "N_Control",
+            "Cod_Caja",
+            "Caja_Embalaje",
+            "FB_Dimensiones_Adec",
+            "FB_Tunel_Temp",
+            "FB_Tunel_Speed",
+            "FB_Test_Tool",
+            "FB_obs",
+            "SCE_Temp",
+            "SCE_Temp_Time",
+            "SCE_Obs",
+            "SCE_Hermt",
+            "Ubi_Lote",
+            "Etiqueta_Manual",
+            "Diligenciado"
+        ]
+        
+        # Diccionario para guardar entradas
+        entries = {}
+        
+        # Crear entradas para cada campo
+        for campo in campos:
+            frame_campo = ctk.CTkFrame(crear_dialog)
+            frame_campo.pack(pady=5, padx=20, fill="x")
+            
+            label = ctk.CTkLabel(frame_campo, text=campo, width=150, anchor="w")
+            label.pack(side="left", padx=(0, 10))
+            
+            entry = ctk.CTkEntry(frame_campo, width=300)
+            entry.pack(side="left", expand=True, fill="x")
+            entries[campo] = entry
+        
+        def guardar():
+            """Guardar el nuevo registro"""
+            try:
+                # Preparar conexión a la base de datos
+                conn_str = (
+                    f"DRIVER={os.getenv('DB1_DRIVER')};"
+                    f"SERVER={os.getenv('DB1_SERVER')};"
+                    f"DATABASE={os.getenv('DB1_DATABASE')};"
+                    f"UID={os.getenv('DB1_UID')};"
+                    f"PWD={os.getenv('DB1_PWD')}"
+                )
+                conn = pyodbc.connect(conn_str)
+                cursor = conn.cursor()
+                
+                # Preparar consulta de inserción
+                query = '''
+                INSERT INTO dbo.SIIAPP_Prod (
+                N_Control,
+                Cod_Caja,
+                Caja_Embalaje,
+                FB_Dimensiones_Adec,
+                FB_Tunel_Temp,
+                FB_Tunel_Speed,
+                FB_Test_Tool,
+                FB_obs,
+                SCE_Temp,
+                SCE_Temp_Time,
+                SCE_Obs,
+                SCE_Hermt,
+                Ubi_Lote,
+                Etiqueta_Manual,
+                Diligenciado
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+            '''
+                
+                # Recoger valores
+                valores = [entries[campo].get() for campo in campos]
+                
+                # Ejecutar inserción
+                cursor.execute(query, valores)
+                conn.commit()
+                
+                messagebox.showinfo(
+                    title="Éxito", 
+                    message="Registro creado correctamente"
+                )
+                crear_dialog.destroy()
+                frame.load_data()
+            
+            except Exception as e:
+                messagebox.showerror(
+                    title="Error", 
+                    message=f"No se pudo crear el registro: {str(e)}",
+                    icon="cancel"
+                )
+            finally:
+                if 'conn' in locals():
+                    conn.close()
+        
+        # Botón de guardar
+        guardar_btn = ctk.CTkButton(crear_dialog, text="Guardar", command=guardar)
+        guardar_btn.pack(pady=20)
+    
+    def edit_record_Produccion(self, frame):
+        try:
+            selected_rows = frame.sheet.get_selected_rows()
+            
+            if not selected_rows:
+                messagebox.showerror(title="Error", message="Seleccione un registro para editar")
+                return
+            
+            # Get the data of the selected row from filtered or original data
+            selected_data = next(iter(selected_rows))
+            row_data = frame.sheet.get_row_data(selected_data)
+            N_control = row_data[1]  # Assuming N_control is in the first column (index 0)
 
+            if not N_control:
+                messagebox.showerror("Error", "No se pudo obtener el N_control del registro seleccionado.")
+                logging.error("El N_control es nulo o no válido.")
+                return
+
+            logging.info(f"N_control seleccionado: {N_control}")
+
+            # Create edit dialog window
+            editar_dialog = ctk.CTkToplevel(frame)
+            editar_dialog.title("Editar Registro")
+            editar_dialog.geometry("500x700")
+
+            # Fields (excluding N_control)
+            campos = [
+                "N_Control",
+                "Cod_Caja",
+                "Caja_Embalaje",
+                "FB_Dimensiones_Adec",
+                "FB_Tunel_Temp",
+                "FB_Tunel_Speed",
+                "FB_Test_Tool",
+                "FB_obs",
+                "SCE_Temp",
+                "SCE_Temp_Time",
+                "SCE_Obs",
+                "SCE_Hermt",
+                "Ubi_Lote",
+                "Etiqueta_Manual",
+                "Diligenciado"
+            ]
+
+            # Dictionary to store entry widgets
+            entries = {}
+            # Create the scrollable frame
+            scrollable_frame = ScrollableFrame(editar_dialog)
+            scrollable_frame.pack(pady=10, padx=20, fill="both", expand=True)
+
+            # Create a frame for the input fields
+            input_frame = ctk.CTkFrame(scrollable_frame)
+            input_frame.pack(fill="x", expand=True)
+            # Create input fields for each column
+            for i, campo in enumerate(campos, start=1):
+                field_frame = ctk.CTkFrame(input_frame)
+                field_frame.pack(pady=5, padx=20, fill="x")
+
+                label = ctk.CTkLabel(field_frame, text=campo, width=150, anchor="w")
+                label.pack(side="left", padx=(0, 10))
+
+                entry = ctk.CTkEntry(field_frame, width=300)
+                entry.pack(side="left", expand=True, fill="x")
+
+                # Pre-fill current value from row_data
+                valor_actual = row_data[i]
+                entry.insert(0, valor_actual)
+
+                entries[campo] = entry
+
+            def actualizar():
+                """Update the selected record"""
+                try:
+                    logging.info(f"Inicio de actualización para N_control: {N_control}")
+                    conn_str = (
+                        f"DRIVER={os.getenv('DB1_DRIVER')};"
+                        f"SERVER={os.getenv('DB1_SERVER')};"
+                        f"DATABASE={os.getenv('DB1_DATABASE')};"
+                        f"UID={os.getenv('DB1_UID')};"
+                        f"PWD={os.getenv('DB1_PWD')}"
+                    )
+                    conn = pyodbc.connect(conn_str)
+                    cursor = conn.cursor()
+
+                    # Prepare update query
+                    query = '''
+                        UPDATE dbo.SIIAPP_Prod SET
+                        N_Control = ?,
+                        Cod_Caja = ?,
+                        Caja_Embalaje = ?,
+                        FB_Dimensiones_Adec = ?,
+                        FB_Tunel_Temp = ?,
+                        FB_Tunel_Speed = ?,
+                        FB_Test_Tool = ?,
+                        FB_obs = ?,
+                        SCE_Temp = ?,
+                        SCE_Temp_Time = ?,
+                        SCE_Obs = ?,
+                        SCE_Hermt = ?,
+                        Ubi_Lote = ?,
+                        Etiqueta_Manual = ?,
+                        Diligenciado = ?
+                    WHERE N_Control = ?;
+                    '''
+                    # Collect values
+                    valores = [entries[campo].get() for campo in campos] + [N_control]
+
+                    # Execute update
+                    cursor.execute(query, valores)
+                    conn.commit()
+
+                    logging.info(f"Registro {N_control} actualizado exitosamente.")
+                    messagebox.showinfo("Éxito", "Registro actualizado correctamente")
+                    editar_dialog.destroy()
+
+                    # Refresh data in the frame
+                    frame.load_data()
+
+                except Exception as e:
+                    logging.error(f"Error al actualizar registro {N_control}: {e}")
+                    messagebox.showerror("Error", f"No se pudo actualizar el registro: {str(e)}")
+                finally:
+                    if 'conn' in locals():
+                        conn.close()
+
+            # Update button
+            actualizar_btn = ctk.CTkButton(input_frame, text="Actualizar", command=actualizar)
+            actualizar_btn.pack(pady=20)
+
+        except Exception as e:
+            logging.error(f"Error en el proceso de edición: {e}")
+            messagebox.showerror("Error", f"Ocurrió un problema al intentar editar el registro: {str(e)}")
 
 class ScrollableFrame(ctk.CTkScrollableFrame):
     def __init__(self, master, **kwargs):
@@ -203,54 +1183,89 @@ class ScrollableFrame(ctk.CTkScrollableFrame):
 
 
 class MyFrame(ctk.CTkFrame):
-    def __init__(self, master, load_data_func, **kwargs):
+    def __init__(self, master, load_data_func, create_record_func=None, edit_record_func=None, **kwargs):
         super().__init__(master, **kwargs)
-        self.load_data_func = load_data_func
         
-        # Create Tksheet widget
+        # Store data management functions
+        self.load_data_func = load_data_func
+        self.create_record_func = create_record_func
+        self.edit_record_func = edit_record_func
+        
+        # Original and filtered data storage
+        self.original_data = []
+        self.filtered_data = []
+        
+        # Create sheet
         self.sheet = Sheet(self)
         self.sheet.pack(fill="both", expand=True)
-
-        self.filtered_data = []
-
-        # FASES SEGUIMIENTO 0C
-        self.fases = ["Cartera", "Homologacion", "Cotizacion", "Diseño", "Suministrado Por Cliente"]
-
+        
         # Enable row selection
         self.sheet.enable_bindings(("single_select", "row_select", "arrowkeys"))
-
-        # Create a scrollable frame
-        self.scrollable_frame = ScrollableFrame(self)
-        self.scrollable_frame.pack(fill="both", expand=True)
-
-        # Create filter entry
-        self.filter_entry = ctk.CTkEntry(
-            self.scrollable_frame, placeholder_text="Buscar por # OC, CODIGO ITEM, ITEM, NIT, PROVEEDOR"
-        )
-        self.filter_entry.pack(padx=10, pady=10, fill="x")
-        self.filter_entry.bind("<Return>", self.filter_data)
-
+        
         # Create buttons
-        self.button_frame = ctk.CTkFrame(self.scrollable_frame)
-        self.button_frame.pack(padx=10, pady=10, fill="x")
-
-        self.create_child_button = ctk.CTkButton(
-            self.button_frame, text="Crear Registro", command=self.create_child_record
+        self.button_frame = ctk.CTkFrame(self)
+        self.button_frame.pack(fill="x", padx=10, pady=5)
+        
+        self.create_record_button = ctk.CTkButton(
+            self.button_frame, 
+            text="Crear Registro", 
+            command=self.handle_create_record
         )
-        self.create_child_button.pack(side="left", padx=5)
-
-        self.edit_child_button = ctk.CTkButton(
-            self.button_frame, text="Editar Registro", command=self.edit_child_record
+        self.create_record_button.pack(side="left", padx=5)
+        
+        self.edit_record_button = ctk.CTkButton(
+            self.button_frame, 
+            text="Editar Registro", 
+            command=self.handle_edit_record
         )
-        self.edit_child_button.pack(side="left", padx=5)
-
-        self.hot_reload_button = ctk.CTkButton(self.button_frame, text="Refrescar", command=self.reload_data)
-        self.hot_reload_button.pack(side="left", padx=5)
-
+        self.edit_record_button.pack(side="left", padx=5)
+        
+        self.reload_button = ctk.CTkButton(
+            self.button_frame, 
+            text="Refrescar", 
+            command=self.reload_data
+        )
+        self.reload_button.pack(side="left", padx=5)
+        
+        # Initial data load
         self.load_data()
+    def handle_create_record(self):
+        """Handle record creation with custom function"""
+        if self.create_record_func:
+            self.create_record_func(self)
+        else:
+            self.show_default_create_dialog()
+    
+    def handle_edit_record(self):
+        """Handle record editing with custom function"""
+        
+        if self.edit_record_func:
+            self.edit_record_func(self)
+        else:
+            self.show_default_edit_dialog()
+    
+    def show_default_create_dialog(self):
+        """Default create record dialog"""
+        create_window = ctk.CTkToplevel(self)
+        create_window.title("Crear Nuevo Registro")
+        create_window.geometry("400x300")
+    
+    def show_default_edit_dialog(self, record_data):
+        """Default edit record dialog"""
+        edit_window = ctk.CTkToplevel(self)
+        edit_window.title("Editar Registro")
+        edit_window.geometry("400x300")
+    
+    def reload_data(self):
+        # Clear existing data
+        self.sheet.set_sheet_data([])
 
+        # Load updated data from the database
+        self.load_data()
+    
     def load_data(self):
-        self.load_data_func(self)
+        """Initial data loading"""
+        self.load_data_func(self)   
 
     def filter_data(self, event):
         search_text = self.filter_entry.get().lower()
@@ -285,178 +1300,7 @@ class MyFrame(ctk.CTkFrame):
                 else:
                     self.sheet.column_width(column=i, width=width)
 
-    def create_child_record(self):
-        selected_rows = self.sheet.get_selected_rows()
-        if selected_rows:
-            # Get the first selected row
-            selected_row = next(iter(selected_rows))
-            row_data = self.sheet.get_row_data(selected_row)
-            uid_value = row_data[0]  # Assuming 'UID' is at index 0
-            try:
-                conn_str = (
-                    f"DRIVER={os.getenv('DB1_DRIVER')};"
-                    f"SERVER={os.getenv('DB1_SERVER')};"
-                    f"DATABASE={os.getenv('DB1_DATABASE')};"
-                    f"UID={os.getenv('DB1_UID')};"
-                    f"PWD={os.getenv('DB1_PWD')}"
-                )
-                conn = pyodbc.connect(conn_str)
-                cursor = conn.cursor()
-
-                check_query = "SELECT COUNT(*) FROM CON_SEG_OC WHERE UID = ?"
-                cursor.execute(check_query, uid_value)
-                count = cursor.fetchone()[0]
-
-                if count > 0:
-                    messagebox.showerror("Error", "Ya existe un registro con este UID.")
-                    return
-
-            except pyodbc.Error as e:
-                print(f"An error occurred while checking for existing UID: {str(e)}", file=sys.stderr)
-                return
-            finally:
-                if cursor:
-                    cursor.close()
-                if conn:
-                    conn.close()
-
-            # Create a new window for entering child record data
-            child_window = ctk.CTkToplevel(self)
-            child_window.title("Crear Registro de Seguimiento")
-
-            # Add input fields for child record data
-            ocfstate_entry = ctk.CTkComboBox(child_window, values=self.fases, state="readonly")
-            comments_entry = ctk.CTkTextbox(child_window, height=50, width=200)
-            comments_entry.configure(border_color="blue", border_width=0.5)
-
-            # Grid view
-            ocfstate_label = ctk.CTkLabel(child_window, text="Estado de Seguimiento:")
-            ocfstate_label.grid(row=0, column=0, padx=5, pady=5)
-            ocfstate_entry.grid(row=0, column=1, padx=5, pady=5)
-
-            comments_label = ctk.CTkLabel(child_window, text="Comentarios:")
-            comments_label.grid(row=1, column=0, padx=5, pady=5)
-            comments_entry.grid(row=1, column=1, padx=5, pady=5)
-
-            def save_child_record():
-                ocfstate = ocfstate_entry.get()
-                comments = comments_entry.get("0.0", "end")
-
-                if not ocfstate:
-                    messagebox.showerror(
-                        "Error", "Por favor, ingrese el estado de seguimiento antes de guardar el registro."
-                    )
-                    child_window.destroy()
-                    return
-
-                try:
-                    # Insert the child record into the database using parameterized query
-                    conn_str = (
-                        f"DRIVER={os.getenv('DB1_DRIVER')};"
-                        f"SERVER={os.getenv('DB1_SERVER')};"
-                        f"DATABASE={os.getenv('DB1_DATABASE')};"
-                        f"UID={os.getenv('DB1_UID')};"
-                        f"PWD={os.getenv('DB1_PWD')}"
-                    )
-                    conn = pyodbc.connect(conn_str)
-                    cursor = conn.cursor()
-
-                    insert_query = """
-                        INSERT INTO CON_SEG_OC (UID, OCFSTATE, COMMENTS)
-                        VALUES (?, ?, ?)
-                    """
-                    params = (uid_value, ocfstate, comments)
-                    cursor.execute(insert_query, params)
-                    conn.commit()
-
-                except pyodbc.Error as e:
-                    print(f"An error occurred while saving child record: {str(e)}", file=sys.stderr)
-                finally:
-                    # Close the database connection and cursor
-                    if cursor:
-                        cursor.close()
-                    if conn:
-                        conn.close()
-
-                child_window.destroy()
-                self.reload_data()
-
-            save_button = ctk.CTkButton(child_window, text="Guardar", command=save_child_record)
-            save_button.grid(row=2, column=0, columnspan=2, pady=10)
-        else:
-            messagebox.showinfo("Sin seleccion", "Porfavor eliga una fila para Crear un registro")
-
-    def edit_child_record(self):
-        selected_rows = self.sheet.get_selected_rows()
-        if selected_rows:
-            # Get the first selected row
-            selected_row = next(iter(selected_rows))
-            row_data = self.sheet.get_row_data(selected_row)
-            uid_value = row_data[0]  # Assuming 'UID' is at index 0
-
-            # Create a new window for editing child record data
-            edit_window = ctk.CTkToplevel(self)
-            edit_window.title("Editar Registro de Seguimiento")
-
-            # Add input fields for child record data
-            ocfstate_entry = ctk.CTkComboBox(edit_window, values=self.fases, state="readonly")
-            ocfstate_entry.set(row_data[11])  # Pre-fill with existing data
-            comments_entry = ctk.CTkTextbox(edit_window, height=50, width=200)
-            # Pre-fill with existing data
-            comments_entry.insert("0.0", row_data[12])
-            comments_entry.configure(border_color="blue", border_width=0.5)
-
-            # Grid view
-            ocfstate_label = ctk.CTkLabel(edit_window, text="Estado de Seguimiento:")
-            ocfstate_label.grid(row=0, column=0, padx=5, pady=5)
-            ocfstate_entry.grid(row=0, column=1, padx=5, pady=5)
-
-            comments_label = ctk.CTkLabel(edit_window, text="Comentarios:")
-            comments_label.grid(row=1, column=0, padx=5, pady=5)
-            comments_entry.grid(row=1, column=1, padx=5, pady=5)
-
-            def save_edited_child_record():
-                ocfstate = ocfstate_entry.get()
-                comments = comments_entry.get("0.0", "end")
-
-                try:
-                    # Update the child record in the database using parameterized query
-                    conn_str = (
-                        f"DRIVER={os.getenv('DB1_DRIVER')};"
-                        f"SERVER={os.getenv('DB1_SERVER')};"
-                        f"DATABASE={os.getenv('DB1_DATABASE')};"
-                        f"UID={os.getenv('DB1_UID')};"
-                        f"PWD={os.getenv('DB1_PWD')}"
-                    )
-                    conn = pyodbc.connect(conn_str)
-                    cursor = conn.cursor()
-
-                    update_query = """
-                        UPDATE CON_SEG_OC
-                        SET OCFSTATE = ?, COMMENTS = ?
-                        WHERE UID = ?
-                    """
-                    params = (ocfstate, comments, uid_value)
-                    cursor.execute(update_query, params)
-                    conn.commit()
-
-                except pyodbc.Error as e:
-                    print(f"An error occurred while updating child record: {str(e)}", file=sys.stderr)
-                finally:
-                    # Close the database connection and cursor
-                    if cursor:
-                        cursor.close()
-                    if conn:
-                        conn.close()
-
-                edit_window.destroy()
-                self.reload_data()
-
-            save_button = ctk.CTkButton(edit_window, text="Guardar Cambios", command=save_edited_child_record)
-            save_button.grid(row=2, column=0, columnspan=2, pady=10)
-        else:
-            messagebox.showinfo("Sin seleccion", "Porfavor eliga una fila para editar un registro")
-
+    
     def reload_data(self):
         # Clear existing data
         self.sheet.set_sheet_data([])
@@ -518,15 +1362,24 @@ class LoginFrame(ctk.CTkFrame):
             messagebox.showerror("Login Fallido", "Credenciales invalidas o acceso denegado.")
 
 
-def get_user_access(username):
+def get_user_access(user_groups):
+    """
+    Determine the user's access configuration based on group memberships.
+    """
     try:
-        access_config = json.loads(ACCESS_CONFIG)
+        access_config = json.loads(os.getenv("ACCESS_CONFIG"))
     except json.JSONDecodeError:
         logging.error("Invalid JSON format in ACCESS_CONFIG environment variable.")
         return None
 
-    # Check if the username exists in the access configuration
-    return access_config.get(username)
+    # Match user groups with those in ACCESS_CONFIG
+    for group, config in access_config.items():
+        if any(group in user_group for user_group in user_groups):
+            logging.info(f"Access granted based on group: {group}")
+            return config
+
+    logging.warning("No matching group found in ACCESS_CONFIG.")
+    return None
 
 
 def authenticate_user(username, password):
@@ -534,44 +1387,43 @@ def authenticate_user(username, password):
     user = f'{os.getenv("AD_DOMAIN")}\\{username}'
 
     try:
+        # Attempt LDAP bind with provided credentials
         conn = Connection(server, user=user, password=password, authentication="NTLM", auto_bind=True)
         logging.info(f"LDAP bind successful for {username}.")
 
-        # Fetch user access from the .env file
-        user_access = get_user_access(username)
-        if user_access:
-            return user_access
+        # Search base for LDAP
+        search_base = f"DC={os.getenv('AD_DOMAIN').replace('.', ',DC=')}"
 
-        # Check if user is in allowed users
-        allowed_users = os.getenv("ALLOWED_USERS").split(",")
+         # Check if user is in allowed users
+        allowed_users = os.getenv('ALLOWED_USERS').split(',')
         if username in allowed_users:
             return True
-
-        # Search base is set to the root of the domain
-        search_base = f'DC={AD_DOMAIN.replace(".", ",DC=")}'
-
-        conn.search(search_base, f"(sAMAccountName={username})", attributes=["memberOf"], search_scope=SUBTREE)
+        
+        # Search for the user's DN and group memberships
+        conn.search(
+            search_base,
+            f"(sAMAccountName={username})",
+            attributes=["distinguishedName", "memberOf"]
+        )
 
         if not conn.entries:
             logging.warning(f"User {username} not found in LDAP search.")
             return False
 
-        user_groups = [
-            entry.memberOf.values if isinstance(entry.memberOf, list) else [entry.memberOf] for entry in conn.entries
-        ]
-        user_groups = [item for sublist in user_groups for item in sublist]
+        # Retrieve user's group memberships
+        user_groups = conn.entries[0].memberOf.values if conn.entries[0].memberOf else []
 
-        allowed_groups = os.getenv("ALLOWED_GROUPS").split(",")
+        # Determine access based on group memberships
+        user_access = get_user_access(user_groups)
+        if user_access:
+            return user_access
 
-        for group in allowed_groups:
-            if any(group in str(user_group) for user_group in user_groups):
-                return True
+        logging.warning(f"Access denied for {username}. No matching group configuration.")
+        return False
 
     except Exception as e:
         logging.error(f"LDAP error for {username}: {e}")
-
-        logging.warning(f"Access denied for {username}.")
-    return False
+        return False
 
 
 class App(ctk.CTk):
@@ -585,6 +1437,7 @@ class App(ctk.CTk):
         self.login_frame.grid(row=0, column=0, padx=20, pady=20, sticky="nsew")
 
     def show_app_frame(self, user_access):
+        # Replace the login frame with the main app frame
         self.login_frame.destroy()
         self.geometry("1000x600")
         self.my_frame = MyTabView(master=self)
@@ -592,9 +1445,12 @@ class App(ctk.CTk):
 
         # Disable tabs based on access configuration
         if user_access and "disabled_tabs" in user_access:
+            logging.info(f"Disabling tabs: {user_access['disabled_tabs']}")
             for tab in user_access["disabled_tabs"]:
-                self.my_frame._segmented_button._buttons_dict[tab].configure(state=ctk.DISABLED)
-
+                if tab in self.my_frame._segmented_button._buttons_dict:
+                    self.my_frame._segmented_button._buttons_dict[tab].configure(state=ctk.DISABLED)
+                else:
+                    logging.warning(f"Tab '{tab}' not found in segmented button dictionary.")
 
 app = App()
 app.title("Checklist Aprobaciones")
