@@ -151,7 +151,7 @@ class MyTabView(ctk.CTkTabview):
                 "Fecha de solicitud",
                 "Numero Cotizacion",
                 "PT",
-                "Prodcuto",
+                "Producto",
                 "Cliente",
                 "Notificacion Sanitaria",
             ]
@@ -179,10 +179,10 @@ class MyTabView(ctk.CTkTabview):
         # Campos basados en la consulta SELECT
         campos = [
             "Numero de control",
-            "Fecha de solicitud",
+            "Fecha de solicitud (yy-mm-dd)",
             "Numero Cotizacion",
             "PT",
-            "Prodcuto",
+            "Producto",
             "Cliente",
             "Notificacion Sanitaria",
         ]
@@ -276,7 +276,7 @@ class MyTabView(ctk.CTkTabview):
             editar_dialog.geometry("400x500")
 
             # Fields (excluding N_control)
-            campos = ["Numero Cotizacion", "PT", "Prodcuto", "Cliente", "Notificacion Sanitaria"]
+            campos = ["Numero Cotizacion", "PT", "Producto", "Cliente", "Notificacion Sanitaria"]
 
             # Dictionary to store entry widgets
             entries = {}
