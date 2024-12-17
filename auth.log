@@ -1,0 +1,70 @@
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+WARNING:dotenv.main:Python-dotenv could not parse statement starting at line 23
+WARNING:dotenv.main:Python-dotenv could not parse statement starting at line 24
+WARNING:dotenv.main:Python-dotenv could not parse statement starting at line 25
+WARNING:dotenv.main:Python-dotenv could not parse statement starting at line 27
+WARNING:dotenv.main:Python-dotenv could not parse statement starting at line 28
+WARNING:dotenv.main:Python-dotenv could not parse statement starting at line 29
+WARNING:dotenv.main:Python-dotenv could not parse statement starting at line 31
+WARNING:dotenv.main:Python-dotenv could not parse statement starting at line 32
+WARNING:dotenv.main:Python-dotenv could not parse statement starting at line 33
+WARNING:dotenv.main:Python-dotenv could not parse statement starting at line 35
+WARNING:dotenv.main:Python-dotenv could not parse statement starting at line 36
+WARNING:dotenv.main:Python-dotenv could not parse statement starting at line 37
+WARNING:dotenv.main:Python-dotenv could not parse statement starting at line 39
+WARNING:dotenv.main:Python-dotenv could not parse statement starting at line 40
+WARNING:dotenv.main:Python-dotenv could not parse statement starting at line 41
+INFO:root:LDAP bind successful for ds.
+ERROR:root:Invalid JSON format in ACCESS_CONFIG environment variable.
+WARNING:root:Access denied for ds. No matching group configuration.
+INFO:root:LDAP bind successful for ds.
+ERROR:root:Invalid JSON format in ACCESS_CONFIG environment variable.
+WARNING:root:Access denied for ds. No matching group configuration.
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:Disabling tabs: ['Nan']
+WARNING:root:Tab 'Nan' not found in segmented button dictionary.
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:Disabling tabs: ['Nan']
+WARNING:root:Tab 'Nan' not found in segmented button dictionary.
+INFO:root:Set active tab to: Calidad
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:Disabling tabs: ['Nan']
+WARNING:root:Tab 'Nan' not found in segmented button dictionary.
+INFO:root:Set active tab to: Calidad
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:Disabling tabs: ['Nan']
+WARNING:root:Tab 'Nan' not found in segmented button dictionary.
+INFO:root:Set active tab to: Produccion
+INFO:root:N_control seleccionado: DEC1624
+INFO:root:N_control seleccionado: DEC1624
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:Disabling tabs: ['Nan']
+WARNING:root:Tab 'Nan' not found in segmented button dictionary.
+INFO:root:Set active tab to: Produccion
+INFO:root:N_control seleccionado: DEC1624
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:Disabling tabs: ['Nan']
+WARNING:root:Tab 'Nan' not found in segmented button dictionary.
+INFO:root:Set active tab to: Produccion
+INFO:root:N_control seleccionado: DEC0424

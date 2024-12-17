@@ -112,7 +112,7 @@ class MyTabView(ctk.CTkTabview):
     def create_record_Desarrollo(self, frame):
         crear_dialog = ctk.CTkToplevel(self)
         crear_dialog.title("Crear Nuevo Registro - Desarrollo")
-        crear_dialog.geometry("500x700")
+        crear_dialog.geometry("400x500")
         
         # Campos basados en la consulta SELECT
         campos = [
@@ -216,7 +216,7 @@ class MyTabView(ctk.CTkTabview):
             # Create edit dialog window
             editar_dialog = ctk.CTkToplevel(frame)
             editar_dialog.title("Editar Registro")
-            editar_dialog.geometry("500x700")
+            editar_dialog.geometry("400x500")
 
             # Fields (excluding N_control)
             campos = [
@@ -347,7 +347,7 @@ class MyTabView(ctk.CTkTabview):
     def create_record_Bodega(self, frame):
         crear_dialog = ctk.CTkToplevel(self)
         crear_dialog.title("Crear Nuevo Registro - Desarrollo")
-        crear_dialog.geometry("500x700")
+        crear_dialog.geometry("400x500")
         
         # Campos basados en la consulta SELECT
         campos = [
@@ -484,7 +484,7 @@ class MyTabView(ctk.CTkTabview):
             # Create edit dialog window
             editar_dialog = ctk.CTkToplevel(frame)
             editar_dialog.title("Editar Registro")
-            editar_dialog.geometry("500x700")
+            editar_dialog.geometry("400x500")
 
             # Fields (excluding N_control)
             campos = [
@@ -649,7 +649,7 @@ class MyTabView(ctk.CTkTabview):
     def create_record_Calidad(self, frame):
         crear_dialog = ctk.CTkToplevel(self)
         crear_dialog.title("Crear Nuevo Registro - Desarrollo")
-        crear_dialog.geometry("500x700")
+        crear_dialog.geometry("400x500")
         
         # Campos basados en la consulta SELECT
         campos = [
@@ -783,7 +783,7 @@ class MyTabView(ctk.CTkTabview):
             # Create edit dialog window
             editar_dialog = ctk.CTkToplevel(frame)
             editar_dialog.title("Editar Registro")
-            editar_dialog.geometry("500x700")
+            editar_dialog.geometry("400x500")
 
             # Fields (excluding N_control)
             campos = [
@@ -945,7 +945,7 @@ class MyTabView(ctk.CTkTabview):
     def create_record_Produccion(self, frame):
         crear_dialog = ctk.CTkToplevel(self)
         crear_dialog.title("Crear Nuevo Registro - Desarrollo")
-        crear_dialog.geometry("500x700")
+        crear_dialog.geometry("400x500")
         
         # Campos basados en la consulta SELECT
         campos = [
@@ -1067,7 +1067,7 @@ class MyTabView(ctk.CTkTabview):
             # Create edit dialog window
             editar_dialog = ctk.CTkToplevel(frame)
             editar_dialog.title("Editar Registro")
-            editar_dialog.geometry("500x700")
+            editar_dialog.geometry("400x500")
 
             # Fields (excluding N_control)
             campos = [
@@ -1443,14 +1443,26 @@ class App(ctk.CTk):
         self.my_frame = MyTabView(master=self)
         self.my_frame.grid(row=0, column=0, padx=20, pady=20, sticky="nsew")
 
-        # Disable tabs based on access configuration
-        if user_access and "disabled_tabs" in user_access:
-            logging.info(f"Disabling tabs: {user_access['disabled_tabs']}")
-            for tab in user_access["disabled_tabs"]:
-                if tab in self.my_frame._segmented_button._buttons_dict:
-                    self.my_frame._segmented_button._buttons_dict[tab].configure(state=ctk.DISABLED)
+        # Disable tabs and set active tab based on access configuration
+        if user_access:
+            # Disable tabs
+            if "disabled_tabs" in user_access:
+                logging.info(f"Disabling tabs: {user_access['disabled_tabs']}")
+                for tab in user_access["disabled_tabs"]:
+                    if tab in self.my_frame._segmented_button._buttons_dict:
+                        self.my_frame._segmented_button._buttons_dict[tab].configure(state=ctk.DISABLED)
+                    else:
+                        logging.warning(f"Tab '{tab}' not found in segmented button dictionary.")
+            
+            # Set active tab
+            if "active_tab" in user_access:
+                active_tab = user_access.get("active_tab")
+                if active_tab and active_tab in self.my_frame.tab_configs:
+                    # For your custom TabView, use .set() method
+                    self.my_frame.set(active_tab)
+                    logging.info(f"Set active tab to: {active_tab}")
                 else:
-                    logging.warning(f"Tab '{tab}' not found in segmented button dictionary.")
+                    logging.warning(f"Could not set active tab: {active_tab}")
 
 app = App()
 app.title("Checklist Aprobaciones")
