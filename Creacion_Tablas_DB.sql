@@ -17,6 +17,7 @@ CREATE TABLE dbo.SIIAPP_Des (
   PT varchar(50) NULL,
   Producto varchar(50) NULL,
   Cliente varchar(50) NULL,
+  Notif_Sanitaria varchar(50) NULL,
   CONSTRAINT PK_SIIAPP_Des PRIMARY KEY CLUSTERED (UUID, N_control)
 )
 ON [PRIMARY]

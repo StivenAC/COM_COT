@@ -68,3 +68,582 @@ INFO:root:Disabling tabs: ['Nan']
 WARNING:root:Tab 'Nan' not found in segmented button dictionary.
 INFO:root:Set active tab to: Produccion
 INFO:root:N_control seleccionado: DEC0424
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:Disabling tabs: ['Nan']
+WARNING:root:Tab 'Nan' not found in segmented button dictionary.
+INFO:root:Set active tab to: Produccion
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:Disabling tabs: ['Nan']
+WARNING:root:Tab 'Nan' not found in segmented button dictionary.
+INFO:root:Set active tab to: Produccion
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:Disabling tabs: ['Nan']
+WARNING:root:Tab 'Nan' not found in segmented button dictionary.
+INFO:root:Set active tab to: Produccion
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:Disabling tabs: ['Nan']
+WARNING:root:Tab 'Nan' not found in segmented button dictionary.
+INFO:root:Set active tab to: Produccion
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:Disabling tabs: ['Nan']
+WARNING:root:Tab 'Nan' not found in segmented button dictionary.
+INFO:root:Set active tab to: Produccion
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:Disabling tabs: ['Nan']
+WARNING:root:Tab 'Nan' not found in segmented button dictionary.
+INFO:root:Set active tab to: Produccion
+INFO:root:N_control seleccionado: 123ghj
+INFO:root:Inicio de actualizaci贸n para N_control: 123ghj
+ERROR:root:Error al actualizar registro 123ghj: ('22007', '[22007] [Microsoft][ODBC SQL Server Driver][SQL Server]Error al convertir una cadena de caracteres en fecha y/u hora. (241) (SQLExecDirectW)')
+INFO:root:N_control seleccionado: 123ghj
+INFO:root:Inicio de actualizaci贸n para N_control: 123ghj
+ERROR:root:Error al actualizar registro 123ghj: ('22007', '[22007] [Microsoft][ODBC SQL Server Driver][SQL Server]Error al convertir una cadena de caracteres en fecha y/u hora. (241) (SQLExecDirectW)')
+INFO:root:N_control seleccionado: 123ghj
+INFO:root:Inicio de actualizaci贸n para N_control: 123ghj
+INFO:root:Registro 123ghj actualizado exitosamente.
+INFO:root:N_control seleccionado: 123ghj
+INFO:root:N_control seleccionado: 123ghj
+INFO:root:Inicio de actualizaci贸n para N_control: 123ghj
+INFO:root:Registro 123ghj actualizado exitosamente.
+INFO:root:N_control seleccionado: 123ghj
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:Disabling tabs: ['Nan']
+WARNING:root:Tab 'Nan' not found in segmented button dictionary.
+INFO:root:Set active tab to: Produccion
+INFO:root:N_control seleccionado: 12
+INFO:root:N_control seleccionado: n3355-6
+INFO:root:N_control seleccionado: n3355-6
+INFO:root:N_control seleccionado: n3355-6
+INFO:root:N_control seleccionado: n3355-6
+INFO:root:N_control seleccionado: n3355-6
+INFO:root:N_control seleccionado: n3355-6
+INFO:root:N_control seleccionado: n3355-6
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:Disabling tabs: ['Nan']
+WARNING:root:Tab 'Nan' not found in segmented button dictionary.
+INFO:root:Set active tab to: Produccion
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:Disabling tabs: ['Nan']
+WARNING:root:Tab 'Nan' not found in segmented button dictionary.
+INFO:root:Set active tab to: Produccion
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:Disabling tabs: ['Nan']
+WARNING:root:Tab 'Nan' not found in segmented button dictionary.
+INFO:root:Set active tab to: Produccion
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:Disabling tabs: ['Nan']
+WARNING:root:Tab 'Nan' not found in segmented button dictionary.
+INFO:root:Set active tab to: Produccion
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:Disabling tabs: ['Nan']
+WARNING:root:Tab 'Nan' not found in segmented button dictionary.
+INFO:root:Set active tab to: Produccion
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:Disabling tabs: ['Nan']
+WARNING:root:Tab 'Nan' not found in segmented button dictionary.
+INFO:root:Set active tab to: Produccion
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:Disabling tabs: ['Nan']
+WARNING:root:Tab 'Nan' not found in segmented button dictionary.
+INFO:root:Set active tab to: Produccion
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:Disabling tabs: ['Nan']
+WARNING:root:Tab 'Nan' not found in segmented button dictionary.
+INFO:root:Set active tab to: Produccion
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:Disabling tabs: ['Nan']
+WARNING:root:Tab 'Nan' not found in segmented button dictionary.
+INFO:root:Set active tab to: Produccion
+INFO:root:N_control seleccionado: dc123-2
+INFO:root:Inicio de actualizaci贸n para N_control: dc123-2
+INFO:root:Registro dc123-2 actualizado exitosamente.
+ERROR:root:LDAP error for auxest: automatic bind not successful - invalidCredentials
+ERROR:root:LDAP error for auxest: automatic bind not successful - invalidCredentials
+ERROR:root:LDAP error for auxest: automatic bind not successful - invalidCredentials
+ERROR:root:LDAP error for auxest: automatic bind not successful - invalidCredentials
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:Disabling tabs: ['Nan']
+WARNING:root:Tab 'Nan' not found in segmented button dictionary.
+INFO:root:Set active tab to: Produccion
+ERROR:root:LDAP error for auxest: automatic bind not successful - invalidCredentials
+ERROR:root:LDAP error for auxest: automatic bind not successful - invalidCredentials
+INFO:root:LDAP bind successful for ati.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:LDAP bind successful for ati.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:Disabling tabs: ['Nan']
+WARNING:root:Tab 'Nan' not found in segmented button dictionary.
+INFO:root:Set active tab to: Produccion
+INFO:root:LDAP bind successful for cdt.
+INFO:root:Access granted based on group: CALIDAD
+INFO:root:LDAP bind successful for cdt.
+INFO:root:Access granted based on group: CALIDAD
+INFO:root:Disabling tabs: ['Nan']
+WARNING:root:Tab 'Nan' not found in segmented button dictionary.
+INFO:root:Set active tab to: Calidad
+INFO:root:N_control seleccionado: cx123
+INFO:root:Inicio de actualizaci贸n para N_control: cx123
+INFO:root:Registro cx123 actualizado exitosamente.
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:Disabling tabs: ['Nan']
+WARNING:root:Tab 'Nan' not found in segmented button dictionary.
+INFO:root:Set active tab to: Produccion
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:Disabling tabs: ['Nan']
+WARNING:root:Tab 'Nan' not found in segmented button dictionary.
+INFO:root:Set active tab to: Produccion
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:Disabling tabs: ['Nan']
+WARNING:root:Tab 'Nan' not found in segmented button dictionary.
+INFO:root:Set active tab to: Produccion
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:Disabling tabs: ['Nan']
+WARNING:root:Tab 'Nan' not found in segmented button dictionary.
+INFO:root:Set active tab to: Produccion
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:Disabling tabs: ['Nan']
+WARNING:root:Tab 'Nan' not found in segmented button dictionary.
+INFO:root:Set active tab to: Produccion
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:Disabling tabs: ['Nan']
+WARNING:root:Tab 'Nan' not found in segmented button dictionary.
+INFO:root:Set active tab to: Produccion
+INFO:root:N_control seleccionado: 1624-12-01
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:Disabling tabs: ['Nan']
+WARNING:root:Tab 'Nan' not found in segmented button dictionary.
+INFO:root:Set active tab to: Produccion
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:Disabling tabs: ['Nan']
+WARNING:root:Tab 'Nan' not found in segmented button dictionary.
+INFO:root:Set active tab to: Produccion
+INFO:root:N_control seleccionado: 1624-12-01
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:Disabling tabs: ['Nan']
+WARNING:root:Tab 'Nan' not found in segmented button dictionary.
+INFO:root:Set active tab to: Produccion
+INFO:root:N_control seleccionado: 1900-01-01
+INFO:root:N_control seleccionado: 1624-12-01
+INFO:root:N_control seleccionado: 1624-12-01
+ERROR:root:Error en el proceso de edici髇: list index out of range
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:Disabling tabs: ['Nan']
+WARNING:root:Tab 'Nan' not found in segmented button dictionary.
+INFO:root:Set active tab to: Produccion
+INFO:root:N_control seleccionado: 1624-12-01
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:Disabling tabs: ['Nan']
+WARNING:root:Tab 'Nan' not found in segmented button dictionary.
+INFO:root:Set active tab to: Produccion
+INFO:root:N_control seleccionado: 1624-12-01
+INFO:root:Inicio de actualizaci髇 para N_control: 1624-12-01
+INFO:root:Registro 1624-12-01 actualizado exitosamente.
+INFO:root:N_control seleccionado: DEC1624
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:Disabling tabs: ['Nan']
+WARNING:root:Tab 'Nan' not found in segmented button dictionary.
+INFO:root:Set active tab to: Produccion
+INFO:root:N_control seleccionado: DEC0424
+INFO:root:N_control seleccionado: DEC1624
+INFO:root:Inicio de actualizaci髇 para N_control: DEC1624
+INFO:root:Registro DEC1624 actualizado exitosamente.
+INFO:root:N_control seleccionado: DEC1624
+INFO:root:Inicio de actualizaci髇 para N_control: DEC1624
+INFO:root:Registro DEC1624 actualizado exitosamente.
+INFO:root:N_control seleccionado: DEC1624
+INFO:root:Inicio de actualizaci髇 para N_control: DEC1624
+INFO:root:Registro DEC1624 actualizado exitosamente.
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:Disabling tabs: ['Nan']
+WARNING:root:Tab 'Nan' not found in segmented button dictionary.
+INFO:root:Set active tab to: Produccion
+INFO:root:N_control seleccionado: DEC1624
+INFO:root:Inicio de actualizaci髇 para N_control: DEC1624
+INFO:root:Registro DEC1624 actualizado exitosamente.
+INFO:root:N_control seleccionado: DEC1624
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:Disabling tabs: ['Nan']
+WARNING:root:Tab 'Nan' not found in segmented button dictionary.
+INFO:root:Set active tab to: Produccion
+INFO:root:N_control seleccionado: DEC1624
+ERROR:root:Error en el proceso de edici髇: list index out of range
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:Disabling tabs: ['Nan']
+WARNING:root:Tab 'Nan' not found in segmented button dictionary.
+INFO:root:Set active tab to: Produccion
+INFO:root:N_control seleccionado: DEC1624
+INFO:root:Inicio de actualizaci髇 para N_control: DEC1624
+INFO:root:Registro DEC1624 actualizado exitosamente.
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:Disabling tabs: ['Nan']
+WARNING:root:Tab 'Nan' not found in segmented button dictionary.
+INFO:root:Set active tab to: Produccion
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:Disabling tabs: ['Nan']
+WARNING:root:Tab 'Nan' not found in segmented button dictionary.
+INFO:root:Set active tab to: Produccion
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:Disabling tabs: ['Nan']
+WARNING:root:Tab 'Nan' not found in segmented button dictionary.
+INFO:root:Set active tab to: Produccion
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:Disabling tabs: ['Nan']
+WARNING:root:Tab 'Nan' not found in segmented button dictionary.
+INFO:root:Set active tab to: Produccion
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:Disabling tabs: ['Nan']
+WARNING:root:Tab 'Nan' not found in segmented button dictionary.
+INFO:root:Set active tab to: Produccion
+INFO:root:N_control seleccionado: DEC1624
+ERROR:root:Error en el proceso de edici髇: list index out of range
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:Disabling tabs: ['Nan']
+WARNING:root:Tab 'Nan' not found in segmented button dictionary.
+INFO:root:Set active tab to: Produccion
+INFO:root:N_control seleccionado: DEC1624
+INFO:root:N_control seleccionado: DEC1624
+INFO:root:Inicio de actualizaci髇 para N_control: DEC1624
+INFO:root:Registro DEC1624 actualizado exitosamente.
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:Disabling tabs: ['Nan']
+WARNING:root:Tab 'Nan' not found in segmented button dictionary.
+INFO:root:Set active tab to: Produccion
+INFO:root:N_control seleccionado: DEC1624
+ERROR:root:Error fetching item data: ('42S02', "[42S02] [Microsoft][ODBC SQL Server Driver][SQL Server]Invalid object name 'dbo.in_items'. (208) (SQLExecDirectW)")
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:Disabling tabs: ['Nan']
+WARNING:root:Tab 'Nan' not found in segmented button dictionary.
+INFO:root:Set active tab to: Produccion
+INFO:root:N_control seleccionado: DEC1624
+INFO:root:Inicio de actualizaci髇 para N_control: DEC1624
+INFO:root:Registro DEC1624 actualizado exitosamente.
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:Disabling tabs: ['Nan']
+WARNING:root:Tab 'Nan' not found in segmented button dictionary.
+INFO:root:Set active tab to: Produccion
+INFO:root:N_control seleccionado: DEC1624
+INFO:root:N_control seleccionado: 454545
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:Disabling tabs: ['Nan']
+WARNING:root:Tab 'Nan' not found in segmented button dictionary.
+INFO:root:Set active tab to: Produccion
+INFO:root:N_control seleccionado: 454545
+INFO:root:Inicio de actualizaci髇 para N_control: 454545
+INFO:root:Registro 454545 actualizado exitosamente.
+INFO:root:N_control seleccionado: 454545
+INFO:root:N_control seleccionado: 454545
+INFO:root:Inicio de actualizaci髇 para N_control: 454545
+INFO:root:Registro 454545 actualizado exitosamente.
+INFO:root:N_control seleccionado: 454545
+INFO:root:Inicio de actualizaci髇 para N_control: 454545
+INFO:root:Registro 454545 actualizado exitosamente.
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:Disabling tabs: ['Nan']
+WARNING:root:Tab 'Nan' not found in segmented button dictionary.
+INFO:root:Set active tab to: Produccion
+INFO:root:N_control seleccionado: 141414
+INFO:root:Inicio de actualizaci髇 para N_control: 141414
+INFO:root:Registro 141414 actualizado exitosamente.
+INFO:root:N_control seleccionado: 141414
+INFO:root:Inicio de actualizaci髇 para N_control: 141414
+INFO:root:Registro 141414 actualizado exitosamente.
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:Disabling tabs: ['Nan']
+WARNING:root:Tab 'Nan' not found in segmented button dictionary.
+INFO:root:Set active tab to: Produccion
+INFO:root:N_control seleccionado: DEC1624
+INFO:root:N_control seleccionado: 141414
+INFO:root:Inicio de actualizaci髇 para N_control: 141414
+INFO:root:Registro 141414 actualizado exitosamente.
+INFO:root:N_control seleccionado: 141414
+INFO:root:Inicio de actualizaci髇 para N_control: 141414
+ERROR:root:Error al actualizar registro 141414: ('42000', "[42000] [Microsoft][ODBC SQL Server Driver][SQL Server]Incorrect syntax near 'Notif_Sanitaria'. (102) (SQLExecDirectW); [42000] [Microsoft][ODBC SQL Server Driver][SQL Server]Statement(s) could not be prepared. (8180)")
+INFO:root:N_control seleccionado: 141414
+INFO:root:Inicio de actualizaci髇 para N_control: 141414
+ERROR:root:Error al actualizar registro 141414: ('42000', "[42000] [Microsoft][ODBC SQL Server Driver][SQL Server]Incorrect syntax near 'Notif_Sanitaria'. (102) (SQLExecDirectW); [42000] [Microsoft][ODBC SQL Server Driver][SQL Server]Statement(s) could not be prepared. (8180)")
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:Disabling tabs: ['Nan']
+WARNING:root:Tab 'Nan' not found in segmented button dictionary.
+INFO:root:Set active tab to: Produccion
+INFO:root:N_control seleccionado: 141414
+INFO:root:Inicio de actualizaci髇 para N_control: 141414
+ERROR:root:Error al actualizar registro 141414: ('42000', "[42000] [Microsoft][ODBC SQL Server Driver][SQL Server]Incorrect syntax near 'Notif_Sanitaria'. (102) (SQLExecDirectW); [42000] [Microsoft][ODBC SQL Server Driver][SQL Server]Statement(s) could not be prepared. (8180)")
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:Disabling tabs: ['Nan']
+WARNING:root:Tab 'Nan' not found in segmented button dictionary.
+INFO:root:Set active tab to: Produccion
+INFO:root:N_control seleccionado: 14568746
+INFO:root:N_control seleccionado: DEC1624
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:Disabling tabs: ['Nan']
+WARNING:root:Tab 'Nan' not found in segmented button dictionary.
+INFO:root:Set active tab to: Produccion
+INFO:root:N_control seleccionado: 14568746
+INFO:root:Inicio de actualizaci髇 para N_control: 14568746
+INFO:root:Registro 14568746 actualizado exitosamente.
+INFO:root:N_control seleccionado: 141414
+INFO:root:Inicio de actualizaci髇 para N_control: 141414
+INFO:root:Registro 141414 actualizado exitosamente.
+INFO:root:N_control seleccionado: DADA447
+INFO:root:N_control seleccionado: 454545
+INFO:root:Inicio de actualizaci髇 para N_control: 454545
+INFO:root:Registro 454545 actualizado exitosamente.
+INFO:root:N_control seleccionado: 454545
+INFO:root:Inicio de actualizaci髇 para N_control: 454545
+INFO:root:Registro 454545 actualizado exitosamente.
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:Disabling tabs: ['Nan']
+WARNING:root:Tab 'Nan' not found in segmented button dictionary.
+INFO:root:Set active tab to: Produccion
+INFO:root:N_control seleccionado: 14568746
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:Disabling tabs: ['Nan']
+WARNING:root:Tab 'Nan' not found in segmented button dictionary.
+INFO:root:Set active tab to: Produccion
+INFO:root:N_control seleccionado: 14568746
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:Disabling tabs: ['Nan']
+WARNING:root:Tab 'Nan' not found in segmented button dictionary.
+INFO:root:Set active tab to: Produccion
+ERROR:root:Error en el proceso de edici髇: list index out of range
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:Disabling tabs: ['Nan']
+WARNING:root:Tab 'Nan' not found in segmented button dictionary.
+INFO:root:Set active tab to: Produccion
+ERROR:root:Error en el proceso de edici髇: list index out of range
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:Disabling tabs: ['Nan']
+WARNING:root:Tab 'Nan' not found in segmented button dictionary.
+INFO:root:Set active tab to: Produccion
+INFO:root:Inicio de actualizaci髇 para N_control: 14568746
+INFO:root:Registro 14568746 actualizado exitosamente.
+INFO:root:Inicio de actualizaci髇 para N_control: DEC1624
+INFO:root:Registro DEC1624 actualizado exitosamente.
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:Disabling tabs: ['Nan']
+WARNING:root:Tab 'Nan' not found in segmented button dictionary.
+INFO:root:Set active tab to: Produccion
+INFO:root:Inicio de actualizaci髇 para N_control: 141414
+INFO:root:Registro 141414 actualizado exitosamente.
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:Disabling tabs: ['Nan']
+WARNING:root:Tab 'Nan' not found in segmented button dictionary.
+INFO:root:Set active tab to: Produccion
+INFO:root:N_control seleccionado: 141414
+INFO:root:N_control seleccionado: DEC1624
+INFO:root:N_control seleccionado: 14568746
+INFO:root:N_control seleccionado: 14568746
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:Disabling tabs: ['Nan']
+WARNING:root:Tab 'Nan' not found in segmented button dictionary.
+INFO:root:Set active tab to: Produccion
+INFO:root:N_control seleccionado: DEC1624
+INFO:root:N_control seleccionado: DADA447
+INFO:root:N_control seleccionado: 141414
+INFO:root:Inicio de actualizaci髇 para N_control: 141414
+INFO:root:Registro 141414 actualizado exitosamente.
+INFO:root:N_control seleccionado: 141414
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:Disabling tabs: ['Nan']
+WARNING:root:Tab 'Nan' not found in segmented button dictionary.
+INFO:root:Set active tab to: Produccion
+INFO:root:N_control seleccionado: DEC1624
+INFO:root:N_control seleccionado: DADA447
+INFO:root:N_control seleccionado: DEC1624
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:Disabling tabs: ['Nan']
+WARNING:root:Tab 'Nan' not found in segmented button dictionary.
+INFO:root:Set active tab to: Produccion
+INFO:root:N_control seleccionado: 141414
+ERROR:root:Error en el proceso de edici髇: 'dict_keys' object is not subscriptable
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:Disabling tabs: ['Nan']
+WARNING:root:Tab 'Nan' not found in segmented button dictionary.
+INFO:root:Set active tab to: Produccion
+INFO:root:N_control seleccionado: 14568746
