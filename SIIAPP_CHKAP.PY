@@ -92,10 +92,10 @@ class MyTabView(ctk.CTkTabview):
                 "create_func": self.create_record_Desarrollo,
                 "edit_func": self.edit_record_Desarrollo,
             },
-            "Bodega": {
-                "load_func": self.load_data_Bodega,
-                "create_func": self.create_record_Bodega,
-                "edit_func": self.edit_record_Bodega,
+            "Costos": {
+                "load_func": self.load_data_Costos,
+                "create_func": self.create_record_Costos,
+                "edit_func": self.edit_record_Costos,
             },
             "Calidad": {
                 "load_func": self.load_data_Calidad,
@@ -359,7 +359,7 @@ class MyTabView(ctk.CTkTabview):
             logging.error(f"Error en el proceso de edición: {e}")
             messagebox.showerror("Error", f"Ocurrió un problema al intentar editar el registro: {str(e)}")
 
-    def load_data_Bodega(self, frame):
+    def load_data_Costos(self, frame):
         cursor = None  # Initialize cursor with None
         conn = None  # Initialize conn with None
         try:
@@ -439,7 +439,7 @@ class MyTabView(ctk.CTkTabview):
             frame.sheet.set_sheet_data(formatted_data)
 
         except pyodbc.Error as e:
-            print(f"An error occurred while loading Bodega data: {str(e)}", file=sys.stderr)
+            print(f"An error occurred while loading Costos data: {str(e)}", file=sys.stderr)
         finally:
             if cursor:
                 cursor.close()
@@ -447,7 +447,7 @@ class MyTabView(ctk.CTkTabview):
                 conn.close()
 
     # Placeholder methods for create and edit
-    def create_record_Bodega(self, frame):
+    def create_record_Costos(self, frame):
         # crear_dialog = ctk.CTkToplevel(self)
         crear_dialog.title("Crear Nuevo Registro - Desarrollo")
         crear_dialog.geometry("400x500")
@@ -557,7 +557,7 @@ class MyTabView(ctk.CTkTabview):
         guardar_btn = ctk.CTkButton(crear_dialog, text="Guardar", command=guardar)
         guardar_btn.pack(pady=20)
 
-    def edit_record_Bodega(self, frame):
+    def edit_record_Costos(self, frame):
         try:
             selected_rows = frame.sheet.get_selected_rows()
 
@@ -626,11 +626,6 @@ class MyTabView(ctk.CTkTabview):
                     if 'conn' in locals():
                         conn.close()
 
-            # Fetch item data once
-            item_data = fetch_item_data()
-            item_dict = {row[0]: row[1] for row in item_data}
-            item_codes = list(item_dict.keys())
-
             # Create scrollable frame
             scrollable_frame = ScrollableFrame(editar_dialog)
             scrollable_frame.pack(pady=10, padx=20, fill="both", expand=True)
@@ -686,19 +681,29 @@ class MyTabView(ctk.CTkTabview):
 
                     # Store combobox in entries
                     entries[campo] = combobox
-
+                # Modify the section for fields starting with "Codigo"
                 elif campo.startswith("Codigo"):
                     # Create combobox for Codigo fields
                     combobox = ctk.CTkComboBox(field_frame, width=300, values=item_codes)
                     combobox.pack(side="left", expand=True, fill="x")
-
                     # Pre-fill current value from row_data
                     valor_actual = row_data[i] if i < len(row_data) else ""
                     if valor_actual and valor_actual in item_codes:
                         combobox.set(valor_actual)
                     else:
                         combobox.set("")  # Default to an empty value if no valid value exists
-
+                    
+                    # Add filtering functionality for Codigo fields
+                    def on_combobox_input(event, combobox=combobox):
+                        input_text = combobox.get().lower()
+                        filtered_values = [
+                            codigo
+                            for codigo in item_codes
+                            if input_text in codigo.lower()
+                        ]
+                        combobox.configure(values=filtered_values)
+                    
+                    combobox.bind("<KeyRelease>", on_combobox_input)
                     # Store combobox in entries
                     entries[campo] = combobox
 
