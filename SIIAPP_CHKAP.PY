@@ -232,6 +232,18 @@ class MyTabView(ctk.CTkTabview):
                 # Recoger valores
                 valores = [entries[campo].get() for campo in campos]
                 valores = [texto.upper() for texto in valores]
+                
+                #Validations of empty fields
+                if valores[0]=="" and valores[1]=="":
+                    messagebox.showerror(title="Campo obligatorio", message="los campos Fecha de solicitud y Numero de Control son obligatorios")
+                    return
+                if valores[1]=="":
+                    messagebox.showerror(title="Campo obligatorio", message="El campo Fecha de solicitud es obligatorio")
+                    return
+                if valores[0]=="":
+                    messagebox.showerror(title="Campo obligatorio", message="El campo Numero de Control es obligatorio")
+                    return
+                
                 # Ejecutar inserción
                 cursor.execute(query, valores)
                 conn.commit()
@@ -376,6 +388,7 @@ class MyTabView(ctk.CTkTabview):
             query = """SELECT
                     SIIAPP_Bod.N_Control
                     ,SIIAPP_Des.Fecha_Soli
+                    ,SIIAPP_Des.Producto
                     ,SIIAPP_Bod.Bottle_Cod
                     ,SIIAPP_Bod.Envase
                     ,SIIAPP_Bod.Bottle_Sum
@@ -407,6 +420,7 @@ class MyTabView(ctk.CTkTabview):
             headers = [
                 "Numero Control",
                 "Fecha Solicitud",
+                "Producto",
                 "Codigo Envase",
                 "Envase",
                 "Suministra Envase",
@@ -821,57 +835,67 @@ class MyTabView(ctk.CTkTabview):
             cursor = conn.cursor()
 
             query = """SELECT
-            SIIAPP_Cal.N_Control
-            ,SIIAPP_Des.Fecha_Soli
-            ,SIIAPP_Cal.Mesofilos
-            ,SIIAPP_Cal.E_Coli
-            ,SIIAPP_Cal.S_Aureus
-            ,SIIAPP_Cal.P_Aureoginosa
-            ,SIIAPP_Cal.Moho_Levadura
-            ,SIIAPP_Cal.Micro_Obs
-            ,SIIAPP_Cal.Cumple_Microbiologia
-            ,SIIAPP_Cal.Densidad
-            ,SIIAPP_Cal.Ph
-            ,SIIAPP_Cal.Contenido
-            ,SIIAPP_Cal.Color
-            ,SIIAPP_Cal.Textura
-            ,SIIAPP_Cal.Olor
-            ,SIIAPP_Cal.Viscosidad
-            ,SIIAPP_Cal.Rpm
-            ,SIIAPP_Cal.Aguja
-            ,SIIAPP_Cal.Torque
-            ,SIIAPP_Cal.Apt_Container
-            ,SIIAPP_Cal.Cont_Obs
-            ,SIIAPP_Cal.Diligenciado
-            FROM dbo.SIIAPP_Cal
-            INNER JOIN dbo.SIIAPP_Des
-            ON SIIAPP_Cal.N_Control = SIIAPP_Des.N_control
+                 SIIAPP_Cal.N_Control
+                ,SIIAPP_Des.Fecha_Soli
+                ,SIIAPP_Des.Producto
+                ,SIIAPP_Cal.Mesofilos
+                ,SIIAPP_Cal.E_Coli
+                ,SIIAPP_Cal.S_Aureus
+                ,SIIAPP_Cal.P_Aureoginosa
+                ,SIIAPP_Cal.Moho_Levadura
+                ,SIIAPP_Cal.Micro_Obs
+                ,SIIAPP_Cal.Cumple_Microbiologia
+                ,SIIAPP_Cal.Densidad
+                ,SIIAPP_Cal.Ph
+                ,SIIAPP_Cal.Contenido
+                ,SIIAPP_Cal.Color
+                ,SIIAPP_Cal.Textura
+                ,SIIAPP_Cal.Olor
+                ,SIIAPP_Cal.Viscosidad
+                ,SIIAPP_Cal.Rpm
+                ,SIIAPP_Cal.Aguja
+                ,SIIAPP_Cal.Torque
+                ,SIIAPP_Cal.Apt_Container
+                ,SIIAPP_Cal.Cont_Obs
+                ,SIIAPP_Cal.Diseno_Des
+                ,SIIAPP_Cal.Diseno_Prod
+                ,SIIAPP_Cal.Diseno_Bodega
+                ,SIIAPP_Cal.Metodo_Fabricacion
+                ,SIIAPP_Cal.Diligenciado
+                FROM dbo.SIIAPP_Cal
+                INNER JOIN dbo.SIIAPP_Des
+                ON SIIAPP_Cal.N_Control = SIIAPP_Des.N_control
             """
             cursor.execute(query)
             data = cursor.fetchall()
             headers = [
-                "Numero Control",
-                "Fecha Solicitud",
-                "Mesofilos",
-                "E Coli",
-                "S Aureus",
-                "P Aureoginosa",
-                "Moho y Levaduras",
-                "Observaciones Microbiologia",
-                "Cumple Microbiologia",
-                "Densidad",
-                "Ph",
-                "Contenido",
-                "Color",
-                "Textura",
-                "Olor",
-                "Viscosidad",
-                "Rpm",
-                "Aguja",
-                "Torque",
-                "Apto para Contenedor",
-                "Observaciones",
-                "Diligenciado",
+                    "Numero Control",
+                    "Fecha Solicitud",
+                    "Producto",
+                    "Mesofilos",
+                    "E Coli",
+                    "S Aureus",
+                    "P Aureoginosa",
+                    "Moho y Levaduras",
+                    "Observaciones Microbiologia",
+                    "Cumple Microbiologia",
+                    "Densidad",
+                    "Ph",
+                    "Contenido",
+                    "Color",
+                    "Textura",
+                    "Olor",
+                    "Viscosidad",
+                    "Rpm",
+                    "Aguja",
+                    "Torque",
+                    "Apto para Contenedor",
+                    "Observaciones",
+                    "Diseño Desarrollo",
+                    "Diseno Produccion",
+                    "Diseño Bodega",
+                    "Metodo Fabricacion",
+                    "Diligenciado",
             ]
             frame.sheet.headers(headers)
 
@@ -1043,6 +1067,10 @@ class MyTabView(ctk.CTkTabview):
                 "Torque",
                 "Apto para Contenedor",
                 "Observaciones",
+                "Diseño Desarrollo",
+                "Diseno Produccion",
+                "Diseño Bodega",
+                "Metodo Fabricacion",
                 "Diligenciado",
             ]
 
@@ -1058,7 +1086,7 @@ class MyTabView(ctk.CTkTabview):
             input_frame = ctk.CTkFrame(scrollable_frame)
             input_frame.pack(fill="x", expand=True)
             # Create input fields for each column
-            for i, campo in enumerate(campos, start=2):
+            for i, campo in enumerate(campos, start=3):
                 field_frame = ctk.CTkFrame(input_frame)
                 field_frame.pack(pady=5, padx=20, fill="x")
 
@@ -1110,6 +1138,10 @@ class MyTabView(ctk.CTkTabview):
                         Torque = ?,
                         Apt_Container = ?,
                         Cont_Obs = ?,
+                        Diseno_Des = ?,
+                        Diseno_Prod = ?,
+                        Diseno_Bodega = ?,
+                        Metodo_Fabricacion = ?,
                         Diligenciado = ?
                     WHERE N_Control = ?;
                     """
@@ -1160,6 +1192,7 @@ class MyTabView(ctk.CTkTabview):
             query = """SELECT
             SIIAPP_Prod.N_Control
             ,SIIAPP_Des.Fecha_Soli
+            ,SIIAPP_Des.Producto
             ,SIIAPP_Prod.Cod_Caja
             ,SIIAPP_Prod.Caja_Embalaje
             ,SIIAPP_Prod.FB_Dimensiones_Adec
@@ -1183,6 +1216,7 @@ class MyTabView(ctk.CTkTabview):
             headers = [
                 "Numero Control",
                 "Fecha Solicitud",
+                "Producto"
                 "Codigo Caja",
                 "Caja Embalaje",
                 "Banda Dimensiones",
