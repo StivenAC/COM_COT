@@ -2,10 +2,10 @@
 
 
 a = Analysis(
-    ['SIIAPP_SOCC.py'],
+    ['SIIAPP_CHKAP.py'],
     pathex=[],
     binaries=[],
-    datas=[('.env', '.')],
+    datas=[('.env', '.'), ('Assets/icon.ico', 'Assets'),('themes/lavender.json', 'themes')],
     hiddenimports=['tkinter',
     'tkinter.ttk',
     'tkinter.messagebox',
@@ -38,7 +38,7 @@ exe = EXE(
     a.scripts,
     [],
     exclude_binaries=True,
-    name='SIIAPP_SOCC',
+    name='SIIAPP_CHKAP',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
@@ -49,6 +49,7 @@ exe = EXE(
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
+    icon='Assets/icon.ico',  # Path to your .ico file
 )
 coll = COLLECT(
     exe,
@@ -57,5 +58,5 @@ coll = COLLECT(
     strip=False,
     upx=True,
     upx_exclude=[],
-    name='SIIAPP_SOCC',
+    name='SIIAPP_CHKAP',
 )

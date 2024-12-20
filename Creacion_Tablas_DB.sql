@@ -18,6 +18,9 @@ CREATE TABLE dbo.SIIAPP_Des (
   Producto varchar(50) NULL,
   Cliente varchar(50) NULL,
   Notif_Sanitaria varchar(50) NULL,
+  Estado_M varchar(50) NULL,
+  Dis_Des varchar(50) NULL,
+  Obs varchar(50) NULL,
   CONSTRAINT PK_SIIAPP_Des PRIMARY KEY CLUSTERED (UUID, N_control)
 )
 ON [PRIMARY]
@@ -54,6 +57,8 @@ CREATE TABLE dbo.SIIAPP_Prod (
   SCE_Hermt varchar(50) NULL,
   Ubi_Lote varchar(50) NULL,
   Etiqueta_Manual varchar(50) NULL,
+  Dis_Prod varchar(50) NULL,
+  Metod_Fab varchar(50) NULL,
   Diligenciado varchar(50) NULL,
   CONSTRAINT PK_SIIAPP_Prod_UUID PRIMARY KEY CLUSTERED (UUID)
 )
@@ -141,6 +146,7 @@ CREATE TABLE dbo.SIIAPP_Bod (
   Box_Cod varchar(50) NULL,
   Box_Folding varchar(50) NULL,
   Box_Sum varchar(50) NULL,
+  Dis_Bod varchar(50) NULL,
   CONSTRAINT PK_SIIAPP_Bod_UUID PRIMARY KEY CLUSTERED (UUID)
 )
 ON [PRIMARY]

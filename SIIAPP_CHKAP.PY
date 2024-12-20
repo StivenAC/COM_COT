@@ -11,6 +11,17 @@ from ldap3 import Server, Connection, ALL, NTLM, SUBTREE
 from cryptography.fernet import Fernet, InvalidToken
 import logging
 
+# Get the correct path to the icon
+if hasattr(sys, "_MEIPASS"):
+    icon_path = os.path.join(sys._MEIPASS, "Assets", "icon.ico")
+    theme_path = os.path.join(sys._MEIPASS, "themes", "lavender.json")
+else:
+    icon_path = os.path.join(os.path.dirname(__file__), "Assets", "icon.ico")
+    theme_path = os.path.join(os.path.dirname(__file__), "themes", "lavender.json")
+
+ctk.set_appearance_mode("dark")
+ctk.set_default_color_theme(theme_path)
+
 logging.basicConfig(filename="auth.log", level=logging.INFO)
 
 # Check if .env file exists in the current directory
@@ -142,6 +153,9 @@ class MyTabView(ctk.CTkTabview):
             ,SIIAPP_Des.Producto
             ,SIIAPP_Des.Cliente
             ,SIIAPP_Des.Notif_Sanitaria
+            ,SIIAPP_Des.Estado_M
+            ,SIIAPP_Des.Dis_Des
+            ,SIIAPP_Des.Obs
             FROM dbo.SIIAPP_Des
             """
             cursor.execute(query)
@@ -154,6 +168,9 @@ class MyTabView(ctk.CTkTabview):
                 "Producto",
                 "Cliente",
                 "Notificacion Sanitaria",
+                "Estado Muestra",
+                "Diseno Desarrollo",
+                "Observaciones"
             ]
             frame.sheet.headers(headers)
 
@@ -174,17 +191,21 @@ class MyTabView(ctk.CTkTabview):
     def create_record_Desarrollo(self, frame):
         crear_dialog = ctk.CTkToplevel(self)
         crear_dialog.title("Crear Nuevo Registro - Desarrollo")
+        crear_dialog.after(201, lambda :crear_dialog.iconbitmap(icon_path))
         crear_dialog.geometry("400x500")
 
         # Campos basados en la consulta SELECT
         campos = [
             "Numero de control",
-            "Fecha de solicitud (yy-mm-dd)",
+            "Fecha de solicitud (yyyy-mm-dd)",
             "Numero Cotizacion",
             "PT",
             "Producto",
             "Cliente",
             "Notificacion Sanitaria",
+            "Estado Muestra",
+            "Diseno Desarrollo",
+            "Observaciones"
         ]
 
         # Diccionario para guardar entradas
@@ -225,8 +246,11 @@ class MyTabView(ctk.CTkTabview):
                     PT, 
                     Producto, 
                     Cliente,
-                    Notif_Sanitaria
-                ) VALUES (?, ?, ?, ?, ?, ?, ?)
+                    Notif_Sanitaria,
+                    Estado_M,
+                    Dis_Des,
+                    Obs
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """
 
                 # Recoger valores
@@ -285,10 +309,11 @@ class MyTabView(ctk.CTkTabview):
             # Create edit dialog window
             editar_dialog = ctk.CTkToplevel(frame)
             editar_dialog.title("Editar Registro")
+            editar_dialog.after(201, lambda :editar_dialog.iconbitmap(icon_path))
             editar_dialog.geometry("400x500")
 
             # Fields (excluding N_control)
-            campos = ["Numero Cotizacion", "PT", "Producto", "Cliente", "Notificacion Sanitaria"]
+            campos = ["Numero Cotizacion", "PT", "Producto", "Cliente", "Notificacion Sanitaria","Estado Muestra","Diseno Desarrollo","Observaciones"]
 
             # Dictionary to store entry widgets
             entries = {}
@@ -338,7 +363,10 @@ class MyTabView(ctk.CTkTabview):
                             PT = ?, 
                             Producto = ?, 
                             Cliente = ?,
-                            Notif_Sanitaria = ?
+                            Notif_Sanitaria = ?,
+                            Estado_M = ?, 
+                            Dis_Des = ?, 
+                            Obs = ?
                         WHERE N_control = ?
                     """
                     # Collect values
@@ -411,6 +439,7 @@ class MyTabView(ctk.CTkTabview):
                     ,SIIAPP_Bod.Box_Cod
                     ,SIIAPP_Bod.Box_Folding
                     ,SIIAPP_Bod.Box_Sum
+                    ,SIIAPP_Bod.Dis_Bod
                     FROM dbo.SIIAPP_Bod
                     INNER JOIN dbo.SIIAPP_Des
                     ON SIIAPP_Bod.N_Control = SIIAPP_Des.N_control
@@ -443,6 +472,7 @@ class MyTabView(ctk.CTkTabview):
                 "Codigo Plegadiza",
                 "Caja Plegadiza",
                 "Suministra Caja",
+                "Diseno Bodega"
             ]
             frame.sheet.headers(headers)
 
@@ -490,7 +520,7 @@ class MyTabView(ctk.CTkTabview):
             "Etiqueta",
             "Box_Cod",
             "Box_Folding",
-            "Box_Sum",
+            "Box_Sum"
         ]
 
         # Diccionario para guardar entradas
@@ -594,6 +624,7 @@ class MyTabView(ctk.CTkTabview):
             # Create edit dialog window
             editar_dialog = ctk.CTkToplevel(frame)
             editar_dialog.title("Editar Registro")
+            editar_dialog.after(201, lambda :editar_dialog.iconbitmap(icon_path))
             editar_dialog.geometry("400x500")
 
             # Fields (excluding N_control)
@@ -604,6 +635,7 @@ class MyTabView(ctk.CTkTabview):
                 "Codigo Banda", "Banda", "Ubicacion Banda",
                 "Codigo Etiqueta", "Etiqueta",
                 "Codigo Plegadiza", "Caja Plegadiza", "Suministra Caja",
+                "Diseno Bodega"
             ]
 
             # Dictionary to store entry/combobox widgets
@@ -662,7 +694,7 @@ class MyTabView(ctk.CTkTabview):
             special_fields = ["Envase", "Tapa", "Foil", "Banda", "Etiqueta", "Caja Plegadiza"]
 
             # Create input fields for each column
-            for i, campo in enumerate(campos, start=2):
+            for i, campo in enumerate(campos, start=3):
                 field_frame = ctk.CTkFrame(input_frame)
                 field_frame.pack(pady=5, padx=20, fill="x")
 
@@ -676,10 +708,10 @@ class MyTabView(ctk.CTkTabview):
 
                     # Pre-fill current value from row_data
                     valor_actual = row_data[i] if i < len(row_data) else ""
-                    if valor_actual and valor_actual in item_dict:
-                        combobox.set(f"{valor_actual} - {item_dict[valor_actual]}")
+                    if valor_actual and valor_actual in item_combined_list:
+                        combobox.set(valor_actual)
                     else:
-                        combobox.set("")  # Default to an empty value if no valid value exists
+                        combobox.set(valor_actual)  # Default to an empty value if no valid value exists
 
                     # Add filtering functionality
                     def on_combobox_input(event, combobox=combobox):
@@ -705,7 +737,7 @@ class MyTabView(ctk.CTkTabview):
                     if valor_actual and valor_actual in item_codes:
                         combobox.set(valor_actual)
                     else:
-                        combobox.set("")  # Default to an empty value if no valid value exists
+                        combobox.set(valor_actual)  # Default to an empty value if no valid value exists
                     
                     # Add filtering functionality for Codigo fields
                     def on_combobox_input(event, combobox=combobox):
@@ -770,7 +802,8 @@ class MyTabView(ctk.CTkTabview):
                         Etiqueta = ?,
                         Box_Cod = ?,
                         Box_Folding = ?,
-                        Box_Sum = ?
+                        Box_Sum = ?,
+                        Dis_Bod = ?
                     WHERE N_Control = ?
                     """
                     # Ensure the order of fields matches the database columns
@@ -780,7 +813,8 @@ class MyTabView(ctk.CTkTabview):
                         "Codigo Foil", "Foil", "Tipo Foil",
                         "Codigo Banda", "Banda", "Ubicacion Banda",
                         "Codigo Etiqueta", "Etiqueta",
-                        "Codigo Plegadiza", "Caja Plegadiza", "Suministra Caja"
+                        "Codigo Plegadiza", "Caja Plegadiza", "Suministra Caja",
+                        "Diseno Bodega"
                     ]
 
                     # Collect values in the correct order
@@ -857,10 +891,6 @@ class MyTabView(ctk.CTkTabview):
                 ,SIIAPP_Cal.Torque
                 ,SIIAPP_Cal.Apt_Container
                 ,SIIAPP_Cal.Cont_Obs
-                ,SIIAPP_Cal.Diseno_Des
-                ,SIIAPP_Cal.Diseno_Prod
-                ,SIIAPP_Cal.Diseno_Bodega
-                ,SIIAPP_Cal.Metodo_Fabricacion
                 ,SIIAPP_Cal.Diligenciado
                 FROM dbo.SIIAPP_Cal
                 INNER JOIN dbo.SIIAPP_Des
@@ -891,11 +921,7 @@ class MyTabView(ctk.CTkTabview):
                     "Torque",
                     "Apto para Contenedor",
                     "Observaciones",
-                    "Diseño Desarrollo",
-                    "Diseno Produccion",
-                    "Diseño Bodega",
-                    "Metodo Fabricacion",
-                    "Diligenciado",
+                    "Diligenciado Por",
             ]
             frame.sheet.headers(headers)
 
@@ -941,7 +967,7 @@ class MyTabView(ctk.CTkTabview):
             "Torque",
             "Apt_Container",
             "Cont_Obs",
-            "Diligenciado",
+            "Diligenciado Por",
         ]
 
         # Diccionario para guardar entradas
@@ -1044,6 +1070,7 @@ class MyTabView(ctk.CTkTabview):
             # Create edit dialog window
             editar_dialog = ctk.CTkToplevel(frame)
             editar_dialog.title("Editar Registro")
+            editar_dialog.after(201, lambda :editar_dialog.iconbitmap(icon_path))
             editar_dialog.geometry("400x500")
 
             # Fields (excluding N_control)
@@ -1067,11 +1094,7 @@ class MyTabView(ctk.CTkTabview):
                 "Torque",
                 "Apto para Contenedor",
                 "Observaciones",
-                "Diseño Desarrollo",
-                "Diseno Produccion",
-                "Diseño Bodega",
-                "Metodo Fabricacion",
-                "Diligenciado",
+                "Diligenciado Por",
             ]
 
             # Dictionary to store entry widgets
@@ -1138,10 +1161,6 @@ class MyTabView(ctk.CTkTabview):
                         Torque = ?,
                         Apt_Container = ?,
                         Cont_Obs = ?,
-                        Diseno_Des = ?,
-                        Diseno_Prod = ?,
-                        Diseno_Bodega = ?,
-                        Metodo_Fabricacion = ?,
                         Diligenciado = ?
                     WHERE N_Control = ?;
                     """
@@ -1206,6 +1225,8 @@ class MyTabView(ctk.CTkTabview):
             ,SIIAPP_Prod.SCE_Hermt
             ,SIIAPP_Prod.Ubi_Lote
             ,SIIAPP_Prod.Etiqueta_Manual
+            ,SIIAPP_Prod.Dis_Prod
+            ,SIIAPP_Prod.Metod_Fab
             ,SIIAPP_Prod.Diligenciado
             FROM dbo.SIIAPP_Prod
             INNER JOIN dbo.SIIAPP_Des
@@ -1216,7 +1237,7 @@ class MyTabView(ctk.CTkTabview):
             headers = [
                 "Numero Control",
                 "Fecha Solicitud",
-                "Producto"
+                "Producto",
                 "Codigo Caja",
                 "Caja Embalaje",
                 "Banda Dimensiones",
@@ -1230,6 +1251,8 @@ class MyTabView(ctk.CTkTabview):
                 "Hermeticidad",
                 "Ubicacion Lote",
                 "Etiqueta Manual",
+                "Diseno Produccion",
+                "Metodo Fabriacion",
                 "Diligenciado",
             ]
             frame.sheet.headers(headers)
@@ -1367,6 +1390,7 @@ class MyTabView(ctk.CTkTabview):
             # Create edit dialog window
             editar_dialog = ctk.CTkToplevel(frame)
             editar_dialog.title("Editar Registro")
+            editar_dialog.after(201, lambda :editar_dialog.iconbitmap(icon_path))
             editar_dialog.geometry("400x500")
 
             # Fields (excluding N_control)
@@ -1384,7 +1408,9 @@ class MyTabView(ctk.CTkTabview):
                 "Hermeticidad",
                 "Ubicacion Lote",
                 "Etiqueta Manual",
-                "Diligenciado",
+                "Diseno Produccion",
+                "Metodo Fabriacion",
+                "Diligenciado"
             ]
 
             # Dictionary to store entry widgets
@@ -1397,7 +1423,7 @@ class MyTabView(ctk.CTkTabview):
             input_frame = ctk.CTkFrame(scrollable_frame)
             input_frame.pack(fill="x", expand=True)
             # Create input fields for each column
-            for i, campo in enumerate(campos, start=2):
+            for i, campo in enumerate(campos, start=3):
                 field_frame = ctk.CTkFrame(input_frame)
                 field_frame.pack(pady=5, padx=20, fill="x")
 
@@ -1443,6 +1469,8 @@ class MyTabView(ctk.CTkTabview):
                         SCE_Hermt = ?,
                         Ubi_Lote = ?,
                         Etiqueta_Manual = ?,
+                        Dis_Prod = ?,
+                        Metod_Fab = ?,
                         Diligenciado = ?
                     WHERE N_Control = ?;
                     """
@@ -1515,6 +1543,11 @@ class MyFrame(ctk.CTkFrame):
         # Create buttons
         self.button_frame = ctk.CTkFrame(self)
         self.button_frame.pack(fill="x", padx=10, pady=5)
+        # Create filter entry
+        self.filter_entry = ctk.CTkEntry(
+            self.button_frame, placeholder_text="Buscar por Numero De control o Fecha")
+        self.filter_entry.pack(padx=10, pady=10, fill="x")
+        self.filter_entry.bind("<Return>", self.filter_data)
 
         self.create_record_button = ctk.CTkButton(
             self.button_frame, text="Crear Registro", command=self.handle_create_record
@@ -1525,13 +1558,13 @@ class MyFrame(ctk.CTkFrame):
             self.button_frame, text="Editar Registro", command=self.handle_edit_record
         )
         self.edit_record_button.pack(side="left", padx=5)
-
+        
         self.reload_button = ctk.CTkButton(self.button_frame, text="Refrescar", command=self.reload_data)
         self.reload_button.pack(side="left", padx=5)
-
+        
         # Initial data load
         self.load_data()
-
+    
     def handle_create_record(self):
         """Handle record creation with custom function"""
         if self.create_record_func:
@@ -1576,32 +1609,14 @@ class MyFrame(ctk.CTkFrame):
             self.filtered_data = [
                 row
                 for row in self.original_data
-                if search_text in str(row[1]).lower() or  # Search by "# OP"
+                if search_text in str(row[0]).lower() or  # Search by "# OP"
                 # Search by "CODIGO ITEM"
-                search_text in str(row[2]).lower() or
-                # Search by "NIT PROVEEDOR"
-                search_text in str(row[4]).lower() or
-                # Search by "DESCRIPCION ITEM"
-                search_text in str(row[3]).lower() or
-                # Search by "DESCRIPCION PROVEEDOR"
-                search_text in str(row[5]).lower()
+                search_text in str(row[1]).lower()
             ]
             self.sheet.set_sheet_data(self.filtered_data)
-            # Update column widths after filtering
-            for i, width in enumerate(self.column_widths):
-                if all(row[i] == "" for row in self.filtered_data):
-                    self.sheet.column_width(column=i, width=0)
-                else:
-                    self.sheet.column_width(column=i, width=width)
         else:
             self.filtered_data = self.original_data
             self.sheet.set_sheet_data(self.filtered_data)
-            # Update column widths after filtering
-            for i, width in enumerate(self.column_widths):
-                if all(row[i] == "" for row in self.filtered_data):
-                    self.sheet.column_width(column=i, width=0)
-                else:
-                    self.sheet.column_width(column=i, width=width)
 
     def reload_data(self):
         # Clear existing data
@@ -1609,7 +1624,6 @@ class MyFrame(ctk.CTkFrame):
 
         # Load updated data from the database
         self.load_data()
-
 
 class LoginFrame(ctk.CTkFrame):
     def __init__(self, master, **kwargs):
@@ -1763,4 +1777,6 @@ class App(ctk.CTk):
                     logging.warning(f"Could not set active tab: {active_tab}")
 app = App()
 app.title("Checklist Aprobaciones")
+# Set the window icon
+app.iconbitmap(icon_path)
 app.mainloop()
