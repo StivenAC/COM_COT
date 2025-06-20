@@ -1,0 +1,6 @@
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted: matched group 'SISTEMAS'.
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted: matched group 'SISTEMAS'.
+INFO:root:Disabling tabs: ['Nan']
+WARNING:root:Tab 'Nan' not found in segmented button dictionary.

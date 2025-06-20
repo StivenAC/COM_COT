@@ -4,22 +4,16 @@ INFO:root:LDAP bind successful for ds.
 INFO:root:Access granted based on group: SISTEMAS
 INFO:root:Disabling tabs: ['Nan']
 WARNING:root:Tab 'Nan' not found in segmented button dictionary.
-INFO:root:Set active tab to: Produccion
 INFO:root:LDAP bind successful for ds.
 INFO:root:Access granted based on group: SISTEMAS
 INFO:root:LDAP bind successful for ds.
 INFO:root:Access granted based on group: SISTEMAS
 INFO:root:Disabling tabs: ['Nan']
 WARNING:root:Tab 'Nan' not found in segmented button dictionary.
-INFO:root:Set active tab to: Produccion
 INFO:root:LDAP bind successful for ds.
 INFO:root:Access granted based on group: SISTEMAS
 INFO:root:LDAP bind successful for ds.
 INFO:root:Access granted based on group: SISTEMAS
-INFO:root:Disabling tabs: ['Nan']
-WARNING:root:Tab 'Nan' not found in segmented button dictionary.
-INFO:root:Set active tab to: Produccion
-INFO:root:N_control seleccionado: DIC 24239
 INFO:root:LDAP bind successful for ds.
 INFO:root:Access granted based on group: SISTEMAS
 INFO:root:LDAP bind successful for ds.
@@ -30,79 +24,212 @@ INFO:root:LDAP bind successful for ds.
 INFO:root:Access granted based on group: SISTEMAS
 INFO:root:Disabling tabs: ['Nan']
 WARNING:root:Tab 'Nan' not found in segmented button dictionary.
-INFO:root:Set active tab to: Produccion
 INFO:root:LDAP bind successful for ds.
 INFO:root:Access granted based on group: SISTEMAS
 INFO:root:LDAP bind successful for ds.
 INFO:root:Access granted based on group: SISTEMAS
 INFO:root:Disabling tabs: ['Nan']
 WARNING:root:Tab 'Nan' not found in segmented button dictionary.
-INFO:root:Set active tab to: Produccion
 INFO:root:LDAP bind successful for ds.
 INFO:root:Access granted based on group: SISTEMAS
 INFO:root:LDAP bind successful for ds.
 INFO:root:Access granted based on group: SISTEMAS
 INFO:root:Disabling tabs: ['Nan']
 WARNING:root:Tab 'Nan' not found in segmented button dictionary.
-INFO:root:Set active tab to: Produccion
 INFO:root:LDAP bind successful for ds.
 INFO:root:Access granted based on group: SISTEMAS
 INFO:root:LDAP bind successful for ds.
 INFO:root:Access granted based on group: SISTEMAS
 INFO:root:Disabling tabs: ['Nan']
 WARNING:root:Tab 'Nan' not found in segmented button dictionary.
-INFO:root:Set active tab to: Produccion
 INFO:root:LDAP bind successful for ds.
 INFO:root:Access granted based on group: SISTEMAS
 INFO:root:LDAP bind successful for ds.
 INFO:root:Access granted based on group: SISTEMAS
 INFO:root:Disabling tabs: ['Nan']
 WARNING:root:Tab 'Nan' not found in segmented button dictionary.
-INFO:root:Set active tab to: Produccion
 INFO:root:LDAP bind successful for ds.
 INFO:root:Access granted based on group: SISTEMAS
 INFO:root:LDAP bind successful for ds.
 INFO:root:Access granted based on group: SISTEMAS
 INFO:root:Disabling tabs: ['Nan']
 WARNING:root:Tab 'Nan' not found in segmented button dictionary.
-INFO:root:Set active tab to: Produccion
-INFO:root:N_control seleccionado: DIC 24329-2 
-INFO:root:N_control seleccionado: DIC 24329-2 
-INFO:root:N_control seleccionado: DIC 24329-2 
-INFO:root:N_control seleccionado: DIC 24329-2 
 INFO:root:LDAP bind successful for ds.
 INFO:root:Access granted based on group: SISTEMAS
 INFO:root:LDAP bind successful for ds.
 INFO:root:Access granted based on group: SISTEMAS
 INFO:root:Disabling tabs: ['Nan']
 WARNING:root:Tab 'Nan' not found in segmented button dictionary.
-INFO:root:Set active tab to: Produccion
 INFO:root:LDAP bind successful for ds.
 INFO:root:Access granted based on group: SISTEMAS
 INFO:root:LDAP bind successful for ds.
 INFO:root:Access granted based on group: SISTEMAS
 INFO:root:Disabling tabs: ['Nan']
 WARNING:root:Tab 'Nan' not found in segmented button dictionary.
-INFO:root:Set active tab to: Produccion
 INFO:root:LDAP bind successful for ds.
 INFO:root:Access granted based on group: SISTEMAS
 INFO:root:LDAP bind successful for ds.
 INFO:root:Access granted based on group: SISTEMAS
 INFO:root:Disabling tabs: ['Nan']
 WARNING:root:Tab 'Nan' not found in segmented button dictionary.
-INFO:root:Set active tab to: Produccion
 INFO:root:LDAP bind successful for ds.
 INFO:root:Access granted based on group: SISTEMAS
 INFO:root:LDAP bind successful for ds.
 INFO:root:Access granted based on group: SISTEMAS
 INFO:root:Disabling tabs: ['Nan']
 WARNING:root:Tab 'Nan' not found in segmented button dictionary.
-INFO:root:Set active tab to: Produccion
-INFO:root:N_control seleccionado: DIC 24328
+INFO:root:N_control seleccionado: 60
+INFO:root:Inicio de actualizaciÃ³n para N_control: 60
+INFO:root:Registro 60 actualizado exitosamente.
 INFO:root:LDAP bind successful for ds.
 INFO:root:Access granted based on group: SISTEMAS
 INFO:root:LDAP bind successful for ds.
 INFO:root:Access granted based on group: SISTEMAS
 INFO:root:Disabling tabs: ['Nan']
 WARNING:root:Tab 'Nan' not found in segmented button dictionary.
-INFO:root:Set active tab to: Produccion
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:Disabling tabs: ['Nan']
+WARNING:root:Tab 'Nan' not found in segmented button dictionary.
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted based on group: SISTEMAS
+INFO:root:Disabling tabs: ['Nan']
+WARNING:root:Tab 'Nan' not found in segmented button dictionary.
+ERROR:root:LDAP error for adj: unsupported hash type MD4
+ERROR:root:LDAP error for adj: unsupported hash type MD4
+ERROR:root:LDAP error for adj: unsupported hash type MD4
+ERROR:root:LDAP error for adj: unsupported hash type MD4
+INFO:root:Intentando autenticar usuario: GBLAB.LOCAL\adj
+ERROR:root:Error de autenticación LDAP para adj: unsupported hash type MD4
+INFO:root:Intentando autenticar usuario: GBLAB.LOCAL\adj
+ERROR:root:Error de autenticación LDAP para adj: unsupported hash type MD4
+INFO:root:Intentando autenticar usuario: GBLAB.LOCAL\adj
+ERROR:root:Error de autenticación LDAP para adj: unsupported hash type MD4
+INFO:root:Intentando autenticar usuario: GBLAB.LOCAL\adj
+ERROR:root:Error de autenticación LDAP para adj: unsupported hash type MD4
+INFO:root:Intentando autenticar usuario: GBLAB.LOCAL\adj
+INFO:root:LDAP bind exitoso para adj
+INFO:root:Usuario adj está en la lista ALLOWED_USERS
+INFO:root:Intentando autenticar usuario: GBLAB.LOCAL\adj
+INFO:root:LDAP bind exitoso para adj
+INFO:root:Usuario adj está en la lista ALLOWED_USERS
+INFO:root:Intentando autenticar usuario: GBLAB.LOCAL\adj
+INFO:root:LDAP bind exitoso para adj
+INFO:root:Usuario adj está en la lista ALLOWED_USERS
+INFO:root:Intentando autenticar usuario: GBLAB.LOCAL\adj
+INFO:root:LDAP bind exitoso para adj
+INFO:root:Usuario adj está en la lista ALLOWED_USERS
+INFO:root:Intentando autenticar usuario: GBLAB.LOCAL\adj
+INFO:root:LDAP bind exitoso para adj
+INFO:root:Usuario adj está en la lista ALLOWED_USERS
+INFO:root:Intentando autenticar usuario: GBLAB.LOCAL\adj
+INFO:root:LDAP bind exitoso para adj
+INFO:root:Usuario adj está en la lista ALLOWED_USERS
+INFO:root:LDAP bind successful for adj.
+INFO:root:LDAP bind successful for adj.
+INFO:root:LDAP bind successful for adj.
+INFO:root:LDAP bind successful for adj.
+INFO:root:LDAP bind successful for adj.
+INFO:root:LDAP bind successful for adj.
+INFO:root:LDAP bind successful for adj.
+INFO:root:LDAP bind successful for adj.
+INFO:root:LDAP bind successful for adj.
+INFO:root:LDAP bind successful for adj.
+INFO:root:LDAP bind successful for adj.
+INFO:root:LDAP bind successful for adj.
+INFO:root:LDAP bind successful for adj.
+INFO:root:LDAP bind successful for adj.
+INFO:root:LDAP bind successful for adj.
+INFO:root:LDAP bind successful for adj.
+INFO:root:LDAP bind successful for adj.
+INFO:root:LDAP bind successful for adj.
+INFO:root:LDAP bind successful for adj.
+INFO:root:LDAP bind successful for adj.
+INFO:root:LDAP bind successful for adj.
+INFO:root:LDAP bind successful for adj.
+INFO:root:LDAP bind successful for adj.
+INFO:root:LDAP bind successful for adj.
+INFO:root:LDAP bind successful for adj.
+INFO:root:LDAP bind successful for adj.
+INFO:root:LDAP bind successful for adj.
+INFO:root:LDAP bind successful for adj.
+INFO:root:LDAP bind successful for adj.
+INFO:root:LDAP bind successful for adj.
+INFO:root:LDAP bind successful for adj.
+INFO:root:LDAP bind successful for adj.
+INFO:root:LDAP bind successful for adj.
+INFO:root:LDAP bind successful for adj.
+INFO:root:LDAP bind successful for adj.
+INFO:root:LDAP bind successful for adj.
+INFO:root:LDAP bind successful for adj.
+INFO:root:LDAP bind successful for adj.
+INFO:root:LDAP bind successful for adj.
+INFO:root:LDAP bind successful for adj.
+INFO:root:LDAP bind successful for adj.
+INFO:root:LDAP bind successful for adj.
+INFO:root:LDAP bind successful for adj.
+INFO:root:LDAP bind successful for adj.
+INFO:root:LDAP bind successful for adj.
+INFO:root:LDAP bind successful for adj.
+INFO:root:LDAP bind successful for adj.
+INFO:root:LDAP bind successful for adj.
+INFO:root:LDAP bind successful for adj.
+INFO:root:LDAP bind successful for adj.
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted: matched group 'SISTEMAS'.
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted: matched group 'SISTEMAS'.
+INFO:root:Disabling tabs: ['Nan']
+WARNING:root:Tab 'Nan' not found in segmented button dictionary.
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted: matched group 'SISTEMAS'.
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted: matched group 'SISTEMAS'.
+INFO:root:Disabling tabs: ['Nan']
+WARNING:root:Tab 'Nan' not found in segmented button dictionary.
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted: matched group 'SISTEMAS'.
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted: matched group 'SISTEMAS'.
+INFO:root:Disabling tabs: ['Nan']
+WARNING:root:Tab 'Nan' not found in segmented button dictionary.
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted: matched group 'SISTEMAS'.
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted: matched group 'SISTEMAS'.
+INFO:root:Disabling tabs: ['Nan']
+WARNING:root:Tab 'Nan' not found in segmented button dictionary.
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted: matched group 'SISTEMAS'.
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted: matched group 'SISTEMAS'.
+INFO:root:Disabling tabs: ['Nan']
+WARNING:root:Tab 'Nan' not found in segmented button dictionary.
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted: matched group 'SISTEMAS'.
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted: matched group 'SISTEMAS'.
+INFO:root:Disabling tabs: ['Nan']
+WARNING:root:Tab 'Nan' not found in segmented button dictionary.
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted: matched group 'SISTEMAS'.
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted: matched group 'SISTEMAS'.
+INFO:root:Disabling tabs: ['Nan']
+WARNING:root:Tab 'Nan' not found in segmented button dictionary.
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted: matched group 'SISTEMAS'.
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted: matched group 'SISTEMAS'.
+INFO:root:Disabling tabs: ['Nan']
+WARNING:root:Tab 'Nan' not found in segmented button dictionary.
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted: matched group 'SISTEMAS'.
+INFO:root:LDAP bind successful for ds.
+INFO:root:Access granted: matched group 'SISTEMAS'.
+INFO:root:Disabling tabs: ['Nan']
+WARNING:root:Tab 'Nan' not found in segmented button dictionary.
