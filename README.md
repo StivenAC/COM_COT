@@ -16,7 +16,6 @@
 
 ---
 
-
 ## 🧱 Arquitectura del Sistema
 
 ```mermaid
@@ -28,8 +27,7 @@ graph TD;
     E --> F[MyTabView]
     F --> G[Funciones: load, create, edit, export]
     G --> H[(SQL Server: COM_Cot y COM_Proy)]
----
-
+```
 
 ### Componentes principales
 
@@ -60,8 +58,14 @@ cd siiapp-cotm
 ### Crear entorno virtual e instalar dependencias
 
 ```bash
+# Windows
 python -m venv venv
 venv\Scripts\activate
+
+# macOS/Linux
+python3 -m venv venv
+source venv/bin/activate
+
 pip install -r requirements.txt
 ```
 
@@ -91,7 +95,8 @@ AD_SERVER=SERVER2.GBLAB.LOCAL
 ALLOWED_GROUPS=SISTEMAS,DESARROLLOS,PRODUCCION
 ALLOWED_USERS=JORGE.PINEDA,adj
 
-# Clave para cifrado Fernet
+# Clave para cifrado Fernet (puedes generar una con este comando)
+# python -c "from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())"
 ENCRYPTION_KEY=GENERAR_TU_LLAVE
 ```
 
@@ -190,4 +195,4 @@ Desarrollado por el equipo de TI de [Nombre de la empresa].
 
 ## 📄 Licencia
 
-Este proyecto es propiedad de [Tu Empresa]. Uso interno exclusivo. Todos los derechos reservados.
+Este software es de uso exclusivo para [Nombre de la empresa]. Todos los derechos reservados.
