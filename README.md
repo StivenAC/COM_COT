@@ -1,16 +1,17 @@
-
 # 🧾 SIIAPP COTM - Sistema Integrado de Información de Aplicaciones (Cotizaciones y Módulos)
 
 **SIIAPP COTM** es una aplicación de escritorio desarrollada en Python para la gestión de cotizaciones comerciales en entornos empresariales. Ofrece autenticación con Active Directory, control de acceso basado en roles y gestión de datos mediante SQL Server.
+
+---
 
 ## 📌 Características principales
 
 - Interfaz moderna con pestañas (CustomTkinter)
 - Autenticación segura con Active Directory (LDAP)
 - Acceso basado en roles definidos por grupo o usuario
-- Control de flujo de cotizaciones (estados y fechas)
+- Control automatizado del flujo de cotizaciones (estados y fechas)
 - Exportación de datos a Excel
-- Cifrado seguro de credenciales (Fernet)
+- Cifrado de credenciales con Fernet
 - Empaquetado como aplicación ejecutable para Windows
 
 ---
@@ -30,11 +31,11 @@ graph TD;
 
 ### Componentes principales
 
-| Clase         | Descripción                                  |
-|---------------|----------------------------------------------|
-| `App`         | Orquestador principal de la aplicación       |
-| `LoginFrame`  | Interfaz de autenticación con AD             |
-| `MyTabView`   | Gestión tabulada de cotizaciones             |
+| Clase         | Descripción                              |
+|---------------|------------------------------------------|
+| `App`         | Orquestador principal de la aplicación   |
+| `LoginFrame`  | Interfaz de autenticación con AD         |
+| `MyTabView`   | Gestión tabulada de cotizaciones         |
 
 ---
 
@@ -42,10 +43,10 @@ graph TD;
 
 ### Requisitos
 
-- Python 3.10+
-- SQL Server (con base de datos SIIAPP configurada)
-- Active Directory
-- Windows OS
+- Python 3.10 o superior  
+- SQL Server con la base de datos **SIIAPP** configurada  
+- Active Directory  
+- Sistema operativo Windows  
 
 ### Clonar repositorio
 
@@ -66,7 +67,7 @@ pip install -r requirements.txt
 
 ## 🔐 Configuración
 
-Edita el archivo `.env` con tus variables:
+Crea o edita el archivo `.env` en la raíz del proyecto con las siguientes variables:
 
 ```ini
 # Conexiones a bases de datos
@@ -96,11 +97,13 @@ ENCRYPTION_KEY=GENERAR_TU_LLAVE
 
 ## ▶️ Ejecución
 
+Para ejecutar el proyecto desde código fuente:
+
 ```bash
 python COT.py
 ```
 
-O bien ejecuta el archivo empaquetado:
+O ejecuta el archivo empaquetado:
 
 ```bash
 ./dist/SIIAPP_COTM_APP.exe
@@ -113,12 +116,11 @@ O bien ejecuta el archivo empaquetado:
 ### Tablas principales
 
 **COM_Cot**  
-Contiene registros de cotizaciones.
-
+Contiene registros de cotizaciones.  
 Campos: `ID`, `DATE_REP`, `TRANS_STATE`, `COT_STATE`, `COT_ID`, `C_NAME`, `COM_RESP`
 
 **COM_Proy**  
-Datos asociados a proyectos cotizados.
+Contiene datos relacionados con proyectos cotizados.
 
 ---
 
@@ -127,34 +129,34 @@ Datos asociados a proyectos cotizados.
 1. **NUEVA**
 2. **ENVIADO AL COMERCIAL**
 3. **ENVIADO AL CLIENTE**
-4. **ATRASADO** (automático tras 3 días sin avance)
+4. **ATRASADO** (automático tras 3 días sin cambios, excluyendo días festivos)
 
 ---
 
 ## 📤 Exportación
 
-Los usuarios autorizados pueden exportar datos a Excel directamente desde la pestaña de "Costo Comercial".
+Los usuarios autorizados pueden exportar cotizaciones a Excel directamente desde la pestaña **Costo Comercial**.
 
 ---
 
 ## 📦 Distribución
 
-La aplicación puede ser distribuida como ejecutable standalone con PyInstaller:
+La aplicación puede ser empaquetada como ejecutable standalone con PyInstaller:
 
 ```bash
 pyinstaller --onefile --windowed COT.py
 ```
 
-Los recursos se manejan desde `Assets/` o `_internal/`, y se ajustan automáticamente usando `sys._MEIPASS`.
+Los recursos se cargan desde los directorios `Assets/` o `_internal/`, y se ajustan automáticamente usando `sys._MEIPASS`.
 
 ---
 
 ## 🛡️ Seguridad
 
-- Autenticación empresarial vía Active Directory.
-- Control de acceso por grupo/usuario.
-- Cifrado de credenciales con Fernet.
-- Variables sensibles en `.env`.
+- Autenticación empresarial mediante Active Directory  
+- Acceso restringido por grupo o usuario  
+- Cifrado de credenciales con Fernet  
+- Variables sensibles gestionadas en `.env`
 
 ---
 
@@ -177,15 +179,13 @@ siiapp-cotm/
 
 Desarrollado por el equipo de TI de [Nombre de la empresa].
 
-Colaboradores:
-- Jorge Pineda
-- adj
-- Departamento de Desarrollo
+**Colaboradores:**
+- Jorge Pineda  
+- adj  
+- Departamento de Desarrollo  
 
 ---
 
 ## 📄 Licencia
 
-Este proyecto es propiedad de [Tu Empresa]. Uso interno. Todos los derechos reservados.
-
----
+Este proyecto es propiedad de [Tu Empresa]. Uso interno exclusivo. Todos los derechos reservados.
