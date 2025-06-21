@@ -28,7 +28,7 @@ graph TD;
     E --> F[MyTabView]
     F --> G[Funciones: load, create, edit, export]
     G --> H[(SQL Server: COM_Cot y COM_Proy)]
-
+---
 
 
 ### Componentes principales
