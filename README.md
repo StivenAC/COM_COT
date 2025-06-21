@@ -16,18 +16,19 @@
 
 ---
 
+
 ## 🧱 Arquitectura del Sistema
 
 ```mermaid
 graph TD;
-    A[Usuario] --> B[LoginFrame (Autenticación)]
+    A[User] --> B[LoginFrame (Authentication)]
     B --> C{Active Directory}
     C -->|LDAP| D[SERVER2.GBLAB.LOCAL]
     B --> E[App]
-    E --> F[MyTabView (Interfaz de Negocio)]
-    F --> G[Funciones: load, create, edit, export]
+    E --> F[MyTabView (Business Interface)]
+    F --> G[Functions: load, create, edit, export]
     G --> H[(SQL Server: COM_Cot, COM_Proy)]
-```
+
 
 ### Componentes principales
 
