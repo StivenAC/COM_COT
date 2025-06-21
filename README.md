@@ -21,13 +21,14 @@
 
 ```mermaid
 graph TD;
-    A[User] --> B[LoginFrame (Authentication)]
+    A[Usuario] --> B[LoginFrame]
     B --> C{Active Directory}
-    C -->|LDAP| D[SERVER2.GBLAB.LOCAL]
-    B --> E[App]
-    E --> F[MyTabView (Business Interface)]
-    F --> G[Functions: load, create, edit, export]
-    G --> H[(SQL Server: COM_Cot, COM_Proy)]
+    C -->|LDAP| D[LDAP Server]
+    B --> E[App Principal]
+    E --> F[MyTabView]
+    F --> G[Funciones: load, create, edit, export]
+    G --> H[(SQL Server: COM_Cot y COM_Proy)]
+
 
 
 ### Componentes principales
