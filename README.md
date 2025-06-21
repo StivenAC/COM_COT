@@ -182,17 +182,4 @@ siiapp-cotm/
 
 ---
 
-## 👥 Autores y Créditos
 
-Desarrollado por el equipo de TI de [Nombre de la empresa].
-
-**Colaboradores:**
-- Jorge Pineda  
-- adj  
-- Departamento de Desarrollo  
-
----
-
-## 📄 Licencia
-
-Este software es de uso exclusivo para [Nombre de la empresa]. Todos los derechos reservados.
